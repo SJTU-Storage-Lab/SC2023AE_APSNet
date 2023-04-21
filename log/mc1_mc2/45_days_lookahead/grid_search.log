@@ -1,0 +1,88 @@
+Please input the length of days lookahead in {5, 7, 15, 30, 45, 60, 90, 120}: Please specify the coverage of the data {A - Manufacturer 1, B - Manufacturer 2, C - Manufacturer 1 & 2}: ---------------- RF ----------------
+/usr/local/anaconda3/envs/gan-ada/lib/python3.7/site-packages/sklearn/model_selection/_validation.py:372: FitFailedWarning: 
+1800 fits failed out of a total of 7200.
+The score on these train-test partitions for these parameters will be set to nan.
+If these failures are not expected, you can try to debug them by setting error_score='raise'.
+
+Below are more details about the failures:
+--------------------------------------------------------------------------------
+1800 fits failed with the following error:
+Traceback (most recent call last):
+  File "/usr/local/anaconda3/envs/gan-ada/lib/python3.7/site-packages/sklearn/model_selection/_validation.py", line 680, in _fit_and_score
+    estimator.fit(X_train, y_train, **fit_params)
+  File "/usr/local/anaconda3/envs/gan-ada/lib/python3.7/site-packages/sklearn/ensemble/_forest.py", line 467, in fit
+    for i, t in enumerate(trees)
+  File "/usr/local/anaconda3/envs/gan-ada/lib/python3.7/site-packages/joblib/parallel.py", line 1043, in __call__
+    if self.dispatch_one_batch(iterator):
+  File "/usr/local/anaconda3/envs/gan-ada/lib/python3.7/site-packages/joblib/parallel.py", line 861, in dispatch_one_batch
+    self._dispatch(tasks)
+  File "/usr/local/anaconda3/envs/gan-ada/lib/python3.7/site-packages/joblib/parallel.py", line 779, in _dispatch
+    job = self._backend.apply_async(batch, callback=cb)
+  File "/usr/local/anaconda3/envs/gan-ada/lib/python3.7/site-packages/joblib/_parallel_backends.py", line 208, in apply_async
+    result = ImmediateResult(func)
+  File "/usr/local/anaconda3/envs/gan-ada/lib/python3.7/site-packages/joblib/_parallel_backends.py", line 572, in __init__
+    self.results = batch()
+  File "/usr/local/anaconda3/envs/gan-ada/lib/python3.7/site-packages/joblib/parallel.py", line 263, in __call__
+    for func, args, kwargs in self.items]
+  File "/usr/local/anaconda3/envs/gan-ada/lib/python3.7/site-packages/joblib/parallel.py", line 263, in <listcomp>
+    for func, args, kwargs in self.items]
+  File "/usr/local/anaconda3/envs/gan-ada/lib/python3.7/site-packages/sklearn/utils/fixes.py", line 216, in __call__
+    return self.function(*args, **kwargs)
+  File "/usr/local/anaconda3/envs/gan-ada/lib/python3.7/site-packages/sklearn/ensemble/_forest.py", line 185, in _parallel_build_trees
+    tree.fit(X, y, sample_weight=curr_sample_weight, check_input=False)
+  File "/usr/local/anaconda3/envs/gan-ada/lib/python3.7/site-packages/sklearn/tree/_classes.py", line 942, in fit
+    X_idx_sorted=X_idx_sorted,
+  File "/usr/local/anaconda3/envs/gan-ada/lib/python3.7/site-packages/sklearn/tree/_classes.py", line 254, in fit
+    % self.min_samples_split
+ValueError: min_samples_split must be an integer greater than 1 or a float in (0.0, 1.0]; got the integer 1
+
+  warnings.warn(some_fits_failed_message, FitFailedWarning)
+/usr/local/anaconda3/envs/gan-ada/lib/python3.7/site-packages/sklearn/model_selection/_search.py:972: UserWarning: One or more of the test scores are non-finite: [       nan        nan        nan ... 0.76021429 0.76114286 0.76035714]
+  category=UserWarning,
+最优分类器: {'criterion': 'entropy', 'max_depth': 100, 'max_leaf_nodes': None, 'min_samples_leaf': 1, 'min_samples_split': 2, 'n_estimators': 200} 最优分数: 0.8047857142857142
+测试集结果：
+              precision    recall  f1-score   support
+
+         0.0       0.81      0.83      0.82      4892
+         1.0       0.83      0.81      0.82      4892
+
+    accuracy                           0.82      9784
+   macro avg       0.82      0.82      0.82      9784
+weighted avg       0.82      0.82      0.82      9784
+
+---------------- DT ----------------
+最优分类器: {'criterion': 'gini', 'max_depth': 50, 'max_leaf_nodes': 100, 'min_impurity_decrease': 0.0, 'min_samples_leaf': 10} 最优分数: 0.7458571428571428
+测试集结果：
+              precision    recall  f1-score   support
+
+         0.0       0.73      0.77      0.75      4892
+         1.0       0.76      0.72      0.74      4892
+
+    accuracy                           0.75      9784
+   macro avg       0.75      0.75      0.75      9784
+weighted avg       0.75      0.75      0.75      9784
+
+---------------- SVM ----------------
+最优分类器: {'C': 1000, 'gamma': 0.5, 'kernel': 'rbf'} 最优分数: 0.6791428571428572
+测试集结果：
+              precision    recall  f1-score   support
+
+         0.0       0.70      0.62      0.66      4892
+         1.0       0.66      0.74      0.69      4892
+
+    accuracy                           0.68      9784
+   macro avg       0.68      0.68      0.67      9784
+weighted avg       0.68      0.68      0.67      9784
+
+---------------- KNN ----------------
+最优分类器: {'n_neighbors': 10, 'p': 1, 'weights': 'distance'} 最优分数: 0.7109285714285714
+测试集结果：
+              precision    recall  f1-score   support
+
+         0.0       0.71      0.72      0.71      4892
+         1.0       0.72      0.70      0.71      4892
+
+    accuracy                           0.71      9784
+   macro avg       0.71      0.71      0.71      9784
+weighted avg       0.71      0.71      0.71      9784
+

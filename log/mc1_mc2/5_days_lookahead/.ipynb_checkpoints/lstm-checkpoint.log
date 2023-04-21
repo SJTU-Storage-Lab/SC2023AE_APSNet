@@ -1,0 +1,25 @@
+Please input the length of days lookahead in {5, 7, 15, 30, 45, 60, 90, 120}: Please specify the coverage of the data {A - Manufacturer 1, B - Manufacturer 2, C - Manufacturer 1 & 2, D - Manufacturer 1 without aging information, E - Balanced Manufacturer 1 & 2}: -------------------- Loading Data --------------------
+------------------ LSTM ------------------
+cuda
+training 0
+testing 0
+/home/ms-admin/chenzixiao/APSNet/source/lstm_train.py:120: FutureWarning: The input object of type 'Tensor' is an array-like implementing one of the corresponding protocols (`__array__`, `__array_interface__` or `__array_struct__`); but not a sequence (or 0-D). In the future, this object will be coerced as if it was first converted using `np.array(obj)`. To retain the old behaviour, you have to either modify the type 'Tensor', or assign to an empty array created with `np.empty(correct_shape, dtype=object)`.
+  print_all_metrics(np.asarray(y_true).astype('int'), np.asarray(y_predicted))
+/home/ms-admin/chenzixiao/APSNet/source/lstm_train.py:120: VisibleDeprecationWarning: Creating an ndarray from ragged nested sequences (which is a list-or-tuple of lists-or-tuples-or ndarrays with different lengths or shapes) is deprecated. If you meant to do this, you must specify 'dtype=object' when creating the ndarray.
+  print_all_metrics(np.asarray(y_true).astype('int'), np.asarray(y_predicted))
+              precision    recall  f1-score   support
+
+           0    0.68504   0.55198   0.61135      6734
+           1    0.62484   0.74621   0.68016      6734
+
+    accuracy                        0.64909     13468
+   macro avg    0.65494   0.64909   0.64575     13468
+weighted avg    0.65494   0.64909   0.64575     13468
+
+training 1
+training 2
+training 3
+training 4
+training 5
+training 6
+training 7

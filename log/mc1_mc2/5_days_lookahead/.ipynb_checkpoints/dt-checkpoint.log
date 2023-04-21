@@ -1,0 +1,6 @@
+Please input the length of days lookahead in {5, 7, 15, 30, 45, 60, 90, 120}: Please specify the coverage of the data {A - Manufacturer 1, B - Manufacturer 2, C - Manufacturer 1 & 2}: ------------------ Loading Data ------------------
+------------------ Decision Tree ------------------
+Traceback (most recent call last):
+  File "/home/ms-admin/chenzixiao/APSNet/source/dt_train.py", line 66, in <module>
+    model_dtc = DTC(criterion='gini', max_depth=None, max_leaf_nodes=None, min_samples_leaf=1, min_samples_split=2, n_estimators=200)
+TypeError: DecisionTreeClassifier.__init__() got an unexpected keyword argument 'n_estimators'

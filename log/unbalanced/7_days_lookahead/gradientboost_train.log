@@ -1,0 +1,12 @@
+Please input the length of days lookahead in {5, 7, 15, 30, 45, 60, 90, 120}: Please specify the coverage of the data {A - Manufacturer 1, B - Manufacturer 2, C - Manufacturer 1 & 2, D - Unbalanced}:  ------------------ Loading Data ------------------
+------------------ GradientBoostingClassifier ------------------
+              precision    recall  f1-score   support
+
+         0.0    0.92522   0.20661   0.33779     32815
+         1.0    0.55345   0.98330   0.70825     32815
+
+    accuracy                        0.59496     65630
+   macro avg    0.73933   0.59496   0.52302     65630
+weighted avg    0.73933   0.59496   0.52302     65630
+ 0.5949565747371629
+Done

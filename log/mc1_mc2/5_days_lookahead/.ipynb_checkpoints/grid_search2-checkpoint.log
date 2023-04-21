@@ -1,0 +1,48 @@
+Please input the length of days lookahead in {5, 7, 15, 30, 45, 60, 90, 120}: Please specify the coverage of the data {A - Manufacturer 1, B - Manufacturer 2, C - Manufacturer 1 & 2}: ---------------- RF ----------------
+最优分类器: {'criterion': 'gini', 'max_depth': None, 'max_leaf_nodes': None, 'min_samples_leaf': 1, 'min_samples_split': 2, 'n_estimators': 200} 最优分数: 0.8271000000000001
+测试集结果：
+              precision    recall  f1-score   support
+
+         0.0       0.83      0.84      0.84      5304
+         1.0       0.84      0.83      0.84      5304
+
+    accuracy                           0.84     10608
+   macro avg       0.84      0.84      0.84     10608
+weighted avg       0.84      0.84      0.84     10608
+
+---------------- DT ----------------
+最优分类器: {'criterion': 'gini', 'max_depth': 30, 'max_leaf_nodes': 100, 'min_impurity_decrease': 0.0, 'min_samples_leaf': 1} 最优分数: 0.7744
+测试集结果：
+              precision    recall  f1-score   support
+
+         0.0       0.77      0.78      0.78      5304
+         1.0       0.78      0.77      0.77      5304
+
+    accuracy                           0.77     10608
+   macro avg       0.77      0.77      0.77     10608
+weighted avg       0.77      0.77      0.77     10608
+
+---------------- SVM ----------------
+最优分类器: {'C': 1000, 'gamma': 0.5, 'kernel': 'rbf'} 最优分数: 0.723
+测试集结果：
+              precision    recall  f1-score   support
+
+         0.0       0.75      0.67      0.71      5304
+         1.0       0.70      0.78      0.74      5304
+
+    accuracy                           0.72     10608
+   macro avg       0.73      0.72      0.72     10608
+weighted avg       0.73      0.72      0.72     10608
+
+---------------- KNN ----------------
+最优分类器: {'n_neighbors': 7, 'p': 1, 'weights': 'distance'} 最优分数: 0.759
+测试集结果：
+              precision    recall  f1-score   support
+
+         0.0       0.76      0.77      0.76      5304
+         1.0       0.77      0.75      0.76      5304
+
+    accuracy                           0.76     10608
+   macro avg       0.76      0.76      0.76     10608
+weighted avg       0.76      0.76      0.76     10608
+

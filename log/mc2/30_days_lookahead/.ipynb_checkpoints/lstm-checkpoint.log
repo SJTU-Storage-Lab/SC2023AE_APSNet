@@ -1,0 +1,60 @@
+Please input the length of days lookahead in {5, 7, 15, 30, 45, 60, 90, 120}: Please specify the coverage of the data {A - Manufacturer 1, B - Manufacturer 2, C - Manufacturer 1 & 2, D - Manufacturer 1 without aging information, E - Balanced Manufacturer 1 & 2}: -------------------- Loading Data --------------------
+------------------ LSTM ------------------
+cuda
+training 0
+testing 0
+./lstm_train.py:120: FutureWarning: The input object of type 'Tensor' is an array-like implementing one of the corresponding protocols (`__array__`, `__array_interface__` or `__array_struct__`); but not a sequence (or 0-D). In the future, this object will be coerced as if it was first converted using `np.array(obj)`. To retain the old behaviour, you have to either modify the type 'Tensor', or assign to an empty array created with `np.empty(correct_shape, dtype=object)`.
+  print_all_metrics(np.asarray(y_true).astype('int'), np.asarray(y_predicted))
+./lstm_train.py:120: VisibleDeprecationWarning: Creating an ndarray from ragged nested sequences (which is a list-or-tuple of lists-or-tuples-or ndarrays with different lengths or shapes) is deprecated. If you meant to do this, you must specify 'dtype=object' when creating the ndarray.
+  print_all_metrics(np.asarray(y_true).astype('int'), np.asarray(y_predicted))
+              precision    recall  f1-score   support
+
+           0    0.46667   0.46802   0.46734       688
+           1    0.46647   0.46512   0.46579       688
+
+    accuracy                        0.46657      1376
+   macro avg    0.46657   0.46657   0.46657      1376
+weighted avg    0.46657   0.46657   0.46657      1376
+
+training 1
+training 2
+training 3
+training 4
+training 5
+training 6
+training 7
+training 8
+training 9
+training 10
+training 11
+training 12
+training 13
+training 14
+training 15
+training 16
+training 17
+training 18
+training 19
+training 20
+training 21
+training 22
+training 23
+training 24
+training 25
+training 26
+training 27
+training 28
+training 29
+training 30
+training 31
+training 32
+training 33
+training 34
+training 35
+training 36
+training 37
+training 38
+training 39
+training 40
+training 41
+training 42

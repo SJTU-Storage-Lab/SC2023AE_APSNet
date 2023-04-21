@@ -1,0 +1,48 @@
+Please input the length of days lookahead in {5, 7, 15, 30, 45, 60, 90, 120}: Please specify the coverage of the data {A - Manufacturer 1, B - Manufacturer 2, C - Manufacturer 1 & 2}: ---------------- RF ----------------
+最优分类器: {'criterion': 'entropy', 'max_depth': None, 'max_leaf_nodes': None, 'min_samples_leaf': 1, 'min_samples_split': 2, 'n_estimators': 150} 最优分数: 0.8328181818181818
+测试集结果：
+              precision    recall  f1-score   support
+
+         0.0       0.82      0.86      0.84      6582
+         1.0       0.85      0.82      0.83      6582
+
+    accuracy                           0.84     13164
+   macro avg       0.84      0.84      0.84     13164
+weighted avg       0.84      0.84      0.84     13164
+
+---------------- DT ----------------
+最优分类器: {'criterion': 'gini', 'max_depth': 50, 'max_leaf_nodes': 100, 'min_impurity_decrease': 0.0, 'min_samples_leaf': 3} 最优分数: 0.7813636363636364
+测试集结果：
+              precision    recall  f1-score   support
+
+         0.0       0.77      0.77      0.77      6582
+         1.0       0.77      0.77      0.77      6582
+
+    accuracy                           0.77     13164
+   macro avg       0.77      0.77      0.77     13164
+weighted avg       0.77      0.77      0.77     13164
+
+---------------- SVM ----------------
+最优分类器: {'C': 1000, 'gamma': 0.5, 'kernel': 'rbf'} 最优分数: 0.7235454545454545
+测试集结果：
+              precision    recall  f1-score   support
+
+         0.0       0.73      0.69      0.71      6582
+         1.0       0.71      0.74      0.73      6582
+
+    accuracy                           0.72     13164
+   macro avg       0.72      0.72      0.72     13164
+weighted avg       0.72      0.72      0.72     13164
+
+---------------- KNN ----------------
+最优分类器: {'n_neighbors': 8, 'p': 1, 'weights': 'distance'} 最优分数: 0.7655454545454546
+测试集结果：
+              precision    recall  f1-score   support
+
+         0.0       0.75      0.79      0.77      6582
+         1.0       0.78      0.74      0.76      6582
+
+    accuracy                           0.76     13164
+   macro avg       0.76      0.76      0.76     13164
+weighted avg       0.76      0.76      0.76     13164
+

@@ -1,0 +1,48 @@
+Please input the length of days lookahead in {5, 7, 15, 30, 45, 60, 90, 120}: Please specify the coverage of the data {A - Manufacturer 1, B - Manufacturer 2, C - Manufacturer 1 & 2}: ---------------- RF ----------------
+最优分类器: {'criterion': 'gini', 'max_depth': None, 'max_leaf_nodes': None, 'min_samples_leaf': 1, 'min_samples_split': 3, 'n_estimators': 200} 最优分数: 0.8021714285714288
+测试集结果：
+              precision    recall  f1-score   support
+
+         0.0       0.81      0.82      0.81      6798
+         1.0       0.81      0.81      0.81      6798
+
+    accuracy                           0.81     13596
+   macro avg       0.81      0.81      0.81     13596
+weighted avg       0.81      0.81      0.81     13596
+
+---------------- DT ----------------
+最优分类器: {'criterion': 'gini', 'max_depth': 30, 'max_leaf_nodes': None, 'min_impurity_decrease': 0.0, 'min_samples_leaf': 1} 最优分数: 0.7360571428571429
+测试集结果：
+              precision    recall  f1-score   support
+
+         0.0       0.75      0.73      0.74      6798
+         1.0       0.73      0.76      0.75      6798
+
+    accuracy                           0.74     13596
+   macro avg       0.74      0.74      0.74     13596
+weighted avg       0.74      0.74      0.74     13596
+
+---------------- SVM ----------------
+最优分类器: {'C': 1000, 'gamma': 0.5, 'kernel': 'rbf'} 最优分数: 0.6733142857142858
+测试集结果：
+              precision    recall  f1-score   support
+
+         0.0       0.70      0.65      0.67      6798
+         1.0       0.67      0.73      0.70      6798
+
+    accuracy                           0.69     13596
+   macro avg       0.69      0.69      0.69     13596
+weighted avg       0.69      0.69      0.69     13596
+
+---------------- KNN ----------------
+最优分类器: {'n_neighbors': 10, 'p': 1, 'weights': 'distance'} 最优分数: 0.6937714285714286
+测试集结果：
+              precision    recall  f1-score   support
+
+         0.0       0.71      0.70      0.70      6798
+         1.0       0.70      0.71      0.70      6798
+
+    accuracy                           0.70     13596
+   macro avg       0.70      0.70      0.70     13596
+weighted avg       0.70      0.70      0.70     13596
+

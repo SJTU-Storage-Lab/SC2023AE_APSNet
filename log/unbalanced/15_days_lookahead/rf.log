@@ -1,0 +1,13 @@
+Please input the length of days lookahead in {5, 7, 15, 30, 45, 60, 90, 120}: Please specify the coverage of the data {A - Manufacturer 1, B - Manufacturer 2, C - Manufacturer 1 & 2, D - Unbalanced}:  (10000, 30, 11) (67559, 30, 11)
+------------------ Loading Data ------------------
+------------------ Random Forest ------------------
+              precision    recall  f1-score   support
+
+         0.0    0.92046   0.48816   0.63797     33780
+         1.0    0.65172   0.95781   0.77566     33779
+
+    accuracy                        0.72298     67559
+   macro avg    0.78609   0.72299   0.70682     67559
+weighted avg    0.78609   0.72298   0.70682     67559
+
+Done

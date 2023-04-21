@@ -1,0 +1,17 @@
+Please input the length of days lookahead in {5, 7, 15, 30, 45, 60, 90, 120}: Please specify the coverage of the data {A - Manufacturer 1, B - Manufacturer 2, C - Manufacturer 1 & 2, D - Manufacturer 1 without aging information, E - Balanced Manufacturer 1 & 2}: cuda
+Traceback (most recent call last):
+  File "./pnet_train.py", line 89, in <module>
+    output_size_model=output_size_model)
+  File "/home/ms-admin/chenzixiao/APSNet/source/model/PNet.py", line 63, in __init__
+    self.network_smart = NN(input_size_smart, hidden_size_smart, output_size_smart).to(device)
+  File "/usr/local/anaconda3/envs/gan-ada/lib/python3.7/site-packages/torch/nn/modules/module.py", line 673, in to
+    return self._apply(convert)
+  File "/usr/local/anaconda3/envs/gan-ada/lib/python3.7/site-packages/torch/nn/modules/module.py", line 387, in _apply
+    module._apply(fn)
+  File "/usr/local/anaconda3/envs/gan-ada/lib/python3.7/site-packages/torch/nn/modules/module.py", line 387, in _apply
+    module._apply(fn)
+  File "/usr/local/anaconda3/envs/gan-ada/lib/python3.7/site-packages/torch/nn/modules/module.py", line 409, in _apply
+    param_applied = fn(param)
+  File "/usr/local/anaconda3/envs/gan-ada/lib/python3.7/site-packages/torch/nn/modules/module.py", line 671, in convert
+    return t.to(device, dtype if t.is_floating_point() or t.is_complex() else None, non_blocking)
+RuntimeError: CUDA error: out of memory

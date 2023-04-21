@@ -1,0 +1,484 @@
+Please input the length of days lookahead in {5, 7, 15, 30, 45, 60, 90, 120}: Please specify the coverage of the data {A - Manufacturer 1, B - Manufacturer 2, C - Manufacturer 1 & 2, D - Manufacturer 1 without aging information, E - Balanced Manufacturer 1 & 2}: -------------------- Loading Data -------------------
+------------------ NN ------------------
+cuda
+(5144, 330) (1288, 330) (5144,) (1288, 1)
+training 0
+testing 0
+/home/ms-admin/chenzixiao/APSNet/source/./nn_train_online.py:138: FutureWarning: The input object of type 'Tensor' is an array-like implementing one of the corresponding protocols (`__array__`, `__array_interface__` or `__array_struct__`); but not a sequence (or 0-D). In the future, this object will be coerced as if it was first converted using `np.array(obj)`. To retain the old behaviour, you have to either modify the type 'Tensor', or assign to an empty array created with `np.empty(correct_shape, dtype=object)`.
+  print_all_metrics(np.asarray(y_true).astype('int'), np.asarray(y_predicted))
+/home/ms-admin/chenzixiao/APSNet/source/./nn_train_online.py:138: VisibleDeprecationWarning: Creating an ndarray from ragged nested sequences (which is a list-or-tuple of lists-or-tuples-or ndarrays with different lengths or shapes) is deprecated. If you meant to do this, you must specify 'dtype=object' when creating the ndarray.
+  print_all_metrics(np.asarray(y_true).astype('int'), np.asarray(y_predicted))
+              precision    recall  f1-score   support
+
+           0    0.64982   0.27950   0.39088       644
+           1    0.54105   0.84938   0.66103       644
+
+    accuracy                        0.56444      1288
+   macro avg    0.59543   0.56444   0.52595      1288
+weighted avg    0.59543   0.56444   0.52595      1288
+
+training 1
+training 2
+training 3
+training 4
+training 5
+training 6
+training 7
+training 8
+training 9
+training 10
+training 11
+training 12
+training 13
+training 14
+training 15
+training 16
+training 17
+training 18
+training 19
+training 20
+training 21
+training 22
+training 23
+training 24
+training 25
+training 26
+training 27
+training 28
+training 29
+training 30
+training 31
+training 32
+training 33
+training 34
+training 35
+training 36
+training 37
+training 38
+training 39
+training 40
+training 41
+training 42
+training 43
+training 44
+training 45
+training 46
+training 47
+training 48
+training 49
+training 50
+testing 50
+/home/ms-admin/chenzixiao/APSNet/source/./nn_train_online.py:138: FutureWarning: The input object of type 'Tensor' is an array-like implementing one of the corresponding protocols (`__array__`, `__array_interface__` or `__array_struct__`); but not a sequence (or 0-D). In the future, this object will be coerced as if it was first converted using `np.array(obj)`. To retain the old behaviour, you have to either modify the type 'Tensor', or assign to an empty array created with `np.empty(correct_shape, dtype=object)`.
+  print_all_metrics(np.asarray(y_true).astype('int'), np.asarray(y_predicted))
+/home/ms-admin/chenzixiao/APSNet/source/./nn_train_online.py:138: VisibleDeprecationWarning: Creating an ndarray from ragged nested sequences (which is a list-or-tuple of lists-or-tuples-or ndarrays with different lengths or shapes) is deprecated. If you meant to do this, you must specify 'dtype=object' when creating the ndarray.
+  print_all_metrics(np.asarray(y_true).astype('int'), np.asarray(y_predicted))
+              precision    recall  f1-score   support
+
+           0    0.75889   0.76242   0.76065       644
+           1    0.76131   0.75776   0.75953       644
+
+    accuracy                        0.76009      1288
+   macro avg    0.76010   0.76009   0.76009      1288
+weighted avg    0.76010   0.76009   0.76009      1288
+
+training 51
+training 52
+training 53
+training 54
+training 55
+training 56
+training 57
+training 58
+training 59
+training 60
+training 61
+training 62
+training 63
+training 64
+training 65
+training 66
+training 67
+training 68
+training 69
+training 70
+training 71
+training 72
+training 73
+training 74
+training 75
+training 76
+training 77
+training 78
+training 79
+training 80
+training 81
+training 82
+training 83
+training 84
+training 85
+training 86
+training 87
+training 88
+training 89
+training 90
+training 91
+training 92
+training 93
+training 94
+training 95
+training 96
+training 97
+training 98
+training 99
+training 100
+testing 100
+/home/ms-admin/chenzixiao/APSNet/source/./nn_train_online.py:138: FutureWarning: The input object of type 'Tensor' is an array-like implementing one of the corresponding protocols (`__array__`, `__array_interface__` or `__array_struct__`); but not a sequence (or 0-D). In the future, this object will be coerced as if it was first converted using `np.array(obj)`. To retain the old behaviour, you have to either modify the type 'Tensor', or assign to an empty array created with `np.empty(correct_shape, dtype=object)`.
+  print_all_metrics(np.asarray(y_true).astype('int'), np.asarray(y_predicted))
+/home/ms-admin/chenzixiao/APSNet/source/./nn_train_online.py:138: VisibleDeprecationWarning: Creating an ndarray from ragged nested sequences (which is a list-or-tuple of lists-or-tuples-or ndarrays with different lengths or shapes) is deprecated. If you meant to do this, you must specify 'dtype=object' when creating the ndarray.
+  print_all_metrics(np.asarray(y_true).astype('int'), np.asarray(y_predicted))
+              precision    recall  f1-score   support
+
+           0    0.75988   0.80590   0.78222       644
+           1    0.79339   0.74534   0.76861       644
+
+    accuracy                        0.77562      1288
+   macro avg    0.77664   0.77562   0.77542      1288
+weighted avg    0.77664   0.77562   0.77542      1288
+
+training 101
+training 102
+training 103
+training 104
+training 105
+training 106
+training 107
+training 108
+training 109
+training 110
+training 111
+training 112
+training 113
+training 114
+training 115
+training 116
+training 117
+training 118
+training 119
+training 120
+training 121
+training 122
+training 123
+training 124
+training 125
+training 126
+training 127
+training 128
+training 129
+training 130
+training 131
+training 132
+training 133
+training 134
+training 135
+training 136
+training 137
+training 138
+training 139
+training 140
+training 141
+training 142
+training 143
+training 144
+training 145
+training 146
+training 147
+training 148
+training 149
+training 150
+testing 150
+/home/ms-admin/chenzixiao/APSNet/source/./nn_train_online.py:138: FutureWarning: The input object of type 'Tensor' is an array-like implementing one of the corresponding protocols (`__array__`, `__array_interface__` or `__array_struct__`); but not a sequence (or 0-D). In the future, this object will be coerced as if it was first converted using `np.array(obj)`. To retain the old behaviour, you have to either modify the type 'Tensor', or assign to an empty array created with `np.empty(correct_shape, dtype=object)`.
+  print_all_metrics(np.asarray(y_true).astype('int'), np.asarray(y_predicted))
+/home/ms-admin/chenzixiao/APSNet/source/./nn_train_online.py:138: VisibleDeprecationWarning: Creating an ndarray from ragged nested sequences (which is a list-or-tuple of lists-or-tuples-or ndarrays with different lengths or shapes) is deprecated. If you meant to do this, you must specify 'dtype=object' when creating the ndarray.
+  print_all_metrics(np.asarray(y_true).astype('int'), np.asarray(y_predicted))
+              precision    recall  f1-score   support
+
+           0    0.77709   0.77950   0.77829       644
+           1    0.77882   0.77640   0.77760       644
+
+    accuracy                        0.77795      1288
+   macro avg    0.77795   0.77795   0.77795      1288
+weighted avg    0.77795   0.77795   0.77795      1288
+
+training 151
+training 152
+training 153
+training 154
+training 155
+training 156
+training 157
+training 158
+training 159
+training 160
+training 161
+training 162
+training 163
+training 164
+training 165
+training 166
+training 167
+training 168
+training 169
+training 170
+training 171
+training 172
+training 173
+training 174
+training 175
+training 176
+training 177
+training 178
+training 179
+training 180
+training 181
+training 182
+training 183
+training 184
+training 185
+training 186
+training 187
+training 188
+training 189
+training 190
+training 191
+training 192
+training 193
+training 194
+training 195
+training 196
+training 197
+training 198
+training 199
+training 200
+testing 200
+/home/ms-admin/chenzixiao/APSNet/source/./nn_train_online.py:138: FutureWarning: The input object of type 'Tensor' is an array-like implementing one of the corresponding protocols (`__array__`, `__array_interface__` or `__array_struct__`); but not a sequence (or 0-D). In the future, this object will be coerced as if it was first converted using `np.array(obj)`. To retain the old behaviour, you have to either modify the type 'Tensor', or assign to an empty array created with `np.empty(correct_shape, dtype=object)`.
+  print_all_metrics(np.asarray(y_true).astype('int'), np.asarray(y_predicted))
+/home/ms-admin/chenzixiao/APSNet/source/./nn_train_online.py:138: VisibleDeprecationWarning: Creating an ndarray from ragged nested sequences (which is a list-or-tuple of lists-or-tuples-or ndarrays with different lengths or shapes) is deprecated. If you meant to do this, you must specify 'dtype=object' when creating the ndarray.
+  print_all_metrics(np.asarray(y_true).astype('int'), np.asarray(y_predicted))
+              precision    recall  f1-score   support
+
+           0    0.77865   0.77019   0.77440       644
+           1    0.77266   0.78106   0.77683       644
+
+    accuracy                        0.77562      1288
+   macro avg    0.77565   0.77562   0.77561      1288
+weighted avg    0.77565   0.77562   0.77561      1288
+
+training 201
+training 202
+training 203
+training 204
+training 205
+training 206
+training 207
+training 208
+training 209
+training 210
+training 211
+training 212
+training 213
+training 214
+training 215
+training 216
+training 217
+training 218
+training 219
+training 220
+training 221
+training 222
+training 223
+training 224
+training 225
+training 226
+training 227
+training 228
+training 229
+training 230
+training 231
+training 232
+training 233
+training 234
+training 235
+training 236
+training 237
+training 238
+training 239
+training 240
+training 241
+training 242
+training 243
+training 244
+training 245
+training 246
+training 247
+training 248
+training 249
+training 250
+testing 250
+/home/ms-admin/chenzixiao/APSNet/source/./nn_train_online.py:138: FutureWarning: The input object of type 'Tensor' is an array-like implementing one of the corresponding protocols (`__array__`, `__array_interface__` or `__array_struct__`); but not a sequence (or 0-D). In the future, this object will be coerced as if it was first converted using `np.array(obj)`. To retain the old behaviour, you have to either modify the type 'Tensor', or assign to an empty array created with `np.empty(correct_shape, dtype=object)`.
+  print_all_metrics(np.asarray(y_true).astype('int'), np.asarray(y_predicted))
+/home/ms-admin/chenzixiao/APSNet/source/./nn_train_online.py:138: VisibleDeprecationWarning: Creating an ndarray from ragged nested sequences (which is a list-or-tuple of lists-or-tuples-or ndarrays with different lengths or shapes) is deprecated. If you meant to do this, you must specify 'dtype=object' when creating the ndarray.
+  print_all_metrics(np.asarray(y_true).astype('int'), np.asarray(y_predicted))
+              precision    recall  f1-score   support
+
+           0    0.77966   0.78571   0.78268       644
+           1    0.78404   0.77795   0.78098       644
+
+    accuracy                        0.78183      1288
+   macro avg    0.78185   0.78183   0.78183      1288
+weighted avg    0.78185   0.78183   0.78183      1288
+
+training 251
+training 252
+training 253
+training 254
+training 255
+training 256
+training 257
+training 258
+training 259
+training 260
+training 261
+training 262
+training 263
+training 264
+training 265
+training 266
+training 267
+training 268
+training 269
+training 270
+training 271
+training 272
+training 273
+training 274
+training 275
+training 276
+training 277
+training 278
+training 279
+training 280
+training 281
+training 282
+training 283
+training 284
+training 285
+training 286
+training 287
+training 288
+training 289
+training 290
+training 291
+training 292
+training 293
+training 294
+training 295
+training 296
+training 297
+training 298
+training 299
+training 300
+testing 300
+/home/ms-admin/chenzixiao/APSNet/source/./nn_train_online.py:138: FutureWarning: The input object of type 'Tensor' is an array-like implementing one of the corresponding protocols (`__array__`, `__array_interface__` or `__array_struct__`); but not a sequence (or 0-D). In the future, this object will be coerced as if it was first converted using `np.array(obj)`. To retain the old behaviour, you have to either modify the type 'Tensor', or assign to an empty array created with `np.empty(correct_shape, dtype=object)`.
+  print_all_metrics(np.asarray(y_true).astype('int'), np.asarray(y_predicted))
+/home/ms-admin/chenzixiao/APSNet/source/./nn_train_online.py:138: VisibleDeprecationWarning: Creating an ndarray from ragged nested sequences (which is a list-or-tuple of lists-or-tuples-or ndarrays with different lengths or shapes) is deprecated. If you meant to do this, you must specify 'dtype=object' when creating the ndarray.
+  print_all_metrics(np.asarray(y_true).astype('int'), np.asarray(y_predicted))
+              precision    recall  f1-score   support
+
+           0    0.77830   0.76863   0.77344       644
+           1    0.77147   0.78106   0.77623       644
+
+    accuracy                        0.77484      1288
+   macro avg    0.77489   0.77484   0.77484      1288
+weighted avg    0.77489   0.77484   0.77484      1288
+
+training 301
+training 302
+training 303
+training 304
+training 305
+training 306
+training 307
+training 308
+training 309
+training 310
+training 311
+training 312
+training 313
+training 314
+training 315
+training 316
+training 317
+training 318
+training 319
+training 320
+training 321
+training 322
+training 323
+training 324
+training 325
+training 326
+training 327
+training 328
+training 329
+training 330
+training 331
+training 332
+training 333
+training 334
+training 335
+training 336
+training 337
+training 338
+training 339
+training 340
+training 341
+training 342
+training 343
+training 344
+training 345
+training 346
+training 347
+training 348
+training 349
+training 350
+testing 350
+/home/ms-admin/chenzixiao/APSNet/source/./nn_train_online.py:138: FutureWarning: The input object of type 'Tensor' is an array-like implementing one of the corresponding protocols (`__array__`, `__array_interface__` or `__array_struct__`); but not a sequence (or 0-D). In the future, this object will be coerced as if it was first converted using `np.array(obj)`. To retain the old behaviour, you have to either modify the type 'Tensor', or assign to an empty array created with `np.empty(correct_shape, dtype=object)`.
+  print_all_metrics(np.asarray(y_true).astype('int'), np.asarray(y_predicted))
+/home/ms-admin/chenzixiao/APSNet/source/./nn_train_online.py:138: VisibleDeprecationWarning: Creating an ndarray from ragged nested sequences (which is a list-or-tuple of lists-or-tuples-or ndarrays with different lengths or shapes) is deprecated. If you meant to do this, you must specify 'dtype=object' when creating the ndarray.
+  print_all_metrics(np.asarray(y_true).astype('int'), np.asarray(y_predicted))
+              precision    recall  f1-score   support
+
+           0    0.77880   0.78727   0.78301       644
+           1    0.78493   0.77640   0.78064       644
+
+    accuracy                        0.78183      1288
+   macro avg    0.78187   0.78183   0.78183      1288
+weighted avg    0.78187   0.78183   0.78183      1288
+
+training 351
+training 352
+training 353
+training 354
+training 355
+training 356
+training 357
+training 358
+training 359
+training 360
+training 361
+training 362
+training 363
+training 364
+training 365
+training 366
+training 367
