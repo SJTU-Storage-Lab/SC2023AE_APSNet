@@ -1,4 +1,4 @@
-# SC2023_AE_APSNET
+# SC2023AE_APSNet
 Supplemental code and dataset for Aging-aware Pseudo Siamese Network based Approach for SSD failure Prediction.
 
 We provide two experiment reproduction schemes: 
