@@ -1,5 +1,5 @@
 # SC2023AE_APSNet
-Supplemental code and dataset for Aging-aware Pseudo Siamese Network based Approach for SSD failure Prediction.
+Supplemental code and dataset for Exploit both SMART Attributes and NAND Flash Wear Characteristics to Effectively Forecast SSD-based Storage Failures in Clusters.
 
 We provide two experiment reproduction schemes: 
 1. Experiment using Local Environment
@@ -8,16 +8,20 @@ We provide two experiment reproduction schemes:
 ## Artifact Check-List
 The project is structured as follows:
 
- - The folder [model_src](model\_src) contains learning models source code including learning model structures, training and evaluation.
- - The folder [data](data) contains the files needed for training and evaluation.
- - The folder [trained_model](trained\_model) contains the well-trained APSNet, RF, LSTM, NN, DT, LR, SVM, KNN learning models, which are pre-trained and could be used for direct evalution.
+ - The folder [source](souce) contains learning models source code including offline learning models and online learning models.
+ - The folder [source/metrics](source/metrics) contains evaluation source codes using metrics that are introduced in Section 5.1.2 in this paper.
+ - The folder [source/utils](source/utils) contains source codes of model definitions and common-used tools.
+ - The folder [data/offline_dataset](data/offline_dataset) contains the files needed for offline models training and evaluation.
+ - The folder [data/mc1_mc2](data/mc1_mc2) and [data/mc2](data/mc2) contains the pre-precessed dataset for training of online learning models. This experiment is used for reproduce the results of Exp#4 in Section 5.2.3 in this paper.
+ - The folder [trained_model/offline_model](trained\_model/offline\_model) contains the well-trained APSNet, RF, LSTM, NN, DT, LR, SVM, KNN learning models in offline mode. These models are pre-trained and could be used for evalution directly.
+ - The folder [trained_model/mc2](trained\_model/mc2) contains the well-trained APSNet, RF, LSTM, NN, DT, LR, SVM, KNN learning models in online mode. These models are pre-trained and could be used for evalution directly.
  - The folder [loss](loss) contains the loss records while training different learning models with various epoches.
  - The folder [log](log) contains the inference evaluation results logs of APSNet, RF, LSTM, NN, DT, LR, SVM, KNN learning model.
  - The folder [BEC_aging_data](BEC\_aging\_data) contains the open-source normalized SSD aging BEC data over 20,000 SSD drives.  
  - The folder [smart-preprocess](smart\-preprocess) contains SMART preprocess source code and processed SMART data that are used for the training/test SMART pool.
  - The folder [ContainerImage](ContainerImage) contains the container image used for facilitating the artifact evaluation. This image has installed all the library dependencies. All the source code and dataset used for training, test, validition have already been included in this image. This image should be run on docker 20.10.14.
  - [environment.yml](environment.yml) is a file that records the experiment library setup and dependencies.
- - [metrics_apsnet.ipynb](https://github.com/YunfeiGu/APSNet/blob/main/metrics_apsnet.ipynb)is a jupyter notebook script that used for testing our proposed APSNet on all metrics. 
+ <!-- - [metrics_apsnet.ipynb](https://github.com/YunfeiGu/APSNet/blob/main/metrics_apsnet.ipynb)is a jupyter notebook script that used for testing our proposed APSNet on all metrics. 
  - [metrics_lstm.ipynb](https://github.com/YunfeiGu/APSNet/blob/main/metrics_lstm.ipynb) is a jupyter notebook script that used for testing lstm on all metrics.
  - [metrics_nn.ipynb](https://github.com/YunfeiGu/APSNet/blob/main/metrics_nn.ipynb) is a jupyter notebook script that used for testing nn on all metrics.
  - [metrics_rf_knn_lr_dt_svm.ipynb](https://github.com/YunfeiGu/APSNet/blob/main/metrics_rf_knn_lr_dt_svm.ipynb) is a jupyter notebook script that used for testing RF, KNN, LR, DT, SVM learning models on all metrics. 
@@ -25,7 +29,7 @@ The project is structured as follows:
  - [metrics_pnet_2lstm.ipynb](https://github.com/YunfeiGu/APSNet/blob/main/metrics_2lstm.ipynb) is a jupyter notebook script that used for testing APSNet\_LL (explained in Section IV Exp#2 in our paper) model on metrics of TPR, FPR, AUC, F1-score.
  - [metrics_gru_lstm.ipynb](https://github.com/YunfeiGu/APSNet/blob/main/metrics_gru_lstm.ipynb) is a jupyter notebook script that used for testing APSNet\_GL (explained in Section IV Exp#2 in our paper) model on metrics of TPR, FPR, AUC, F1-score.
  - [metrics_pnet.ipynb](https://github.com/YunfeiGu/APSNet/blob/main/metrics_pnet.ipynb.ipynb) is a jupyter notebook script that used for testing APSNet\_NRF (explained in Section IV Exp#3 in our paper) model on metrics of TPR, FPR, AUC, F1-score.
- - [slidingWindow.py](https://github.com/YunfeiGu/APSNet/blob/main/slidingWindow.py) is a script to implement sliding window mechanisms to evaluate the model performance on N days lookahead failure prediction. 
+ - [slidingWindow.py](https://github.com/YunfeiGu/APSNet/blob/main/slidingWindow.py) is a script to implement sliding window mechanisms to evaluate the model performance on N days lookahead failure prediction.  -->
 
 The APSNet code is released under the BSD-3 [License](LICENSE).
 
