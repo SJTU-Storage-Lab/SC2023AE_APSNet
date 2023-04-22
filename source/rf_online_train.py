@@ -3,27 +3,17 @@ import joblib
 import pickle
 from sklearn import metrics
 from river.ensemble import AdaptiveRandomForestClassifier
+from utils import model_and_dataset_selection
 
-n_days_lookahead = int(input('Please input the length of days lookahead in {5, 7, 15, 30, 45, 60, 90, 120}: '))
-
-if(n_days_lookahead not in [5, 7, 15, 30, 45, 60, 90, 120]):
-    print('Input does not meet requirements.')
-    exit()
-
-data_type = str(input('Please specify the coverage of the data {A - Manufacturer 1, B - Manufacturer 2, C - Manufacturer 1 & 2'))
-
-if(data_type not in ['A', 'B', 'C']):
-    print('Input does not meet requirements.')
-    exit()
-
-dit_str = {'A': 'mc1', 'B': 'mc2', 'C': 'mc1_mc2'}
+n_days_lookahead, data_type, data_folder_name_dict, model_type, model_folder_name_dict = model_and_dataset_selection.train_select_online()
 
 
 def loadData():
-    X_train = np.load('../data/' + dit_str[data_type] + '/' + str(n_days_lookahead) + '_days_lookahead/smart_train.npy', allow_pickle=True)
-    y_train = np.load('../data/' + dit_str[data_type] + '/' + str(n_days_lookahead) + '_days_lookahead/train_labels.npy', allow_pickle=True)
-    X_test = np.load('../data/' + dit_str[data_type] + '/' + str(n_days_lookahead) + '_days_lookahead/smart_test.npy', allow_pickle=True)
-    y_test = np.load('../data/' + dit_str[data_type] + '/' + str(n_days_lookahead) + '_days_lookahead/test_labels.npy', allow_pickle=True)
+
+    X_train = np.load('../data/' + data_folder_name_dict[data_type] + '/' + str(n_days_lookahead) + '_days_lookahead/smart_train.npy', allow_pickle=True)
+    y_train = np.load('../data/' + data_folder_name_dict[data_type] + '/' + str(n_days_lookahead) + '_days_lookahead/train_labels.npy', allow_pickle=True)
+    X_test = np.load('../data/' + data_folder_name_dict[data_type] + '/' + str(n_days_lookahead) + '_days_lookahead/smart_test.npy', allow_pickle=True)
+    y_test = np.load('../data/' + data_folder_name_dict[data_type] + '/' + str(n_days_lookahead) + '_days_lookahead/test_labels.npy', allow_pickle=True)
     X_train = X_train.astype('float32')
     y_train = y_train.astype('float32')
     X_test = X_test.astype('float32')
@@ -76,4 +66,4 @@ for Xi, yi in zip(data_x_test, data_y_test):
     y_pred.append(yi_pred)
 print_all_metrics(np.asarray(y_test), np.asarray(y_pred))
 
-joblib.dump(model, '../trained_model/' + dit_str[data_type] + '/' + str(n_days_lookahead) + '_days_lookahead/rf_online.pkl')
+joblib.dump(model, '../trained_model/' + model_folder_name_dict[model_type] + '/' + str(n_days_lookahead) + '_days_lookahead/rf_online.pkl')

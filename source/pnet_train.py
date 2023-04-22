@@ -5,40 +5,26 @@ import numpy as np
 import torch.nn.functional as F
 import matplotlib.pyplot as plt
 from sklearn import metrics
-from model.PNet import LSTM, NN, PSiameseNetwork, DatasetUtil, ContrastiveLoss
+from utils.PNet import LSTM, NN, PSiameseNetwork, DatasetUtil, ContrastiveLoss
 import joblib
 
-n_days_lookahead = int(input('Please input the length of days lookahead in {5, 7, 15, 30, 45, 60, 90, 120}: '))
+from utils import model_and_dataset_selection
 
-if(n_days_lookahead not in [5, 7, 15, 30, 45, 60, 90, 120]):
-    print('Input does not meet requirements.')
-    exit()
-
-data_type = str(input('Please specify the coverage of the data {A - Manufacturer 1, B - Manufacturer 2, C - Manufacturer 1 & 2, D - Unbalanced}:  '))
-
-if(data_type not in ['A', 'B', 'C', 'D']):
-    print('Input does not meet requirements.')
-    exit()
-
-dit_str = {'A': 'mc1', 'B': 'mc2', 'C': 'mc1_mc2', 'D': 'unbalanced'}
+n_days_lookahead, data_type, data_folder_name_dict, model_type, model_folder_name_dict = model_and_dataset_selection.train_select_offline()
 
 
 def loadData():
 
-    if dit_str[data_type] not in ('unbalanced'):
-        X_train = np.load('../data/' + dit_str[data_type] + '/' + str(n_days_lookahead) + '_days_lookahead/smart_train.npy', allow_pickle=True)
-        y_train = np.load('../data/' + dit_str[data_type] + '/' + str(n_days_lookahead) + '_days_lookahead/train_labels.npy', allow_pickle=True)
-    else:
-        X_train = np.load('../data/' + dit_str[data_type] + '/' + str(n_days_lookahead) + '_days_lookahead/smart_train_pnet.npy', allow_pickle=True)
-        y_train = np.load('../data/' + dit_str[data_type] + '/' + str(n_days_lookahead) + '_days_lookahead/train_labels_pnet.npy', allow_pickle=True)
+    X_train = np.load('../data/' + data_folder_name_dict[data_type] + '/' + str(n_days_lookahead) + '_days_lookahead/smart_train.npy', allow_pickle=True)
     aging = np.load('../data/aging.npy')
+    y_train = np.load('../data/' + data_folder_name_dict[data_type] + '/' + str(n_days_lookahead) + '_days_lookahead/train_labels.npy', allow_pickle=True)
     for i in range(0, len(y_train)):
         if y_train[i] == 0:
             y_train[i] = 1
         else:
             y_train[i] = 0
-    X_test = np.load('../data/' + dit_str[data_type] + '/' + str(n_days_lookahead) + '_days_lookahead/smart_test.npy', allow_pickle=True)
-    y_test = np.load('../data/' + dit_str[data_type] + '/' + str(n_days_lookahead) + '_days_lookahead/test_labels.npy', allow_pickle=True)
+    X_test = np.load('../data/' + data_folder_name_dict[data_type] + '/' + str(n_days_lookahead) + '_days_lookahead/smart_test.npy', allow_pickle=True)
+    y_test = np.load('../data/' + data_folder_name_dict[data_type] + '/' + str(n_days_lookahead) + '_days_lookahead/test_labels.npy', allow_pickle=True)
     X_train = X_train.astype('float32')
     aging = aging.astype('float32')
     y_train = y_train.astype('float32')
@@ -146,7 +132,7 @@ for epoch in range(num_epochs):
                     y_true.append(y[j].cpu())
 
         print_all_metrics(np.asarray(y_true).astype('int'), np.asarray(y_predicted))
-        torch.save(pnet.state_dict(), '../trained_model/' + dit_str[data_type] + '/' + str(n_days_lookahead) + '_days_lookahead/pnet_checkpoint/pnet_' + str(epoch) + '.pth')
+        torch.save(pnet.state_dict(), '../trained_model/' + model_folder_name_dict[model_type] + '/' + str(n_days_lookahead) + '_days_lookahead/pnet_checkpoint/pnet_' + str(epoch) + '.pth')
 
 print('final testing')
 y_predicted = []
@@ -166,5 +152,5 @@ with torch.no_grad():
             y_predicted.append(y_pred)
             y_true.append(y[j].cpu())
     print_all_metrics(np.asarray(y_true).astype('int'), np.asarray(y_predicted))
-    torch.save(pnet.state_dict(), '../trained_model/' + dit_str[data_type] + '/' + str(n_days_lookahead) + '_days_lookahead/pnet.pth')
+    torch.save(pnet.state_dict(), '../trained_model/' + model_folder_name_dict[model_type] + '/' + str(n_days_lookahead) + '_days_lookahead/pnet.pth')
     print('Done')

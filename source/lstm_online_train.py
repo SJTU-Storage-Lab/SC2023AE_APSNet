@@ -13,29 +13,18 @@ from sklearn import datasets
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import StandardScaler
 
-from model.LSTM import LSTM, DatasetUtil
+from utils.LSTM import LSTM, DatasetUtil
+from utils import model_and_dataset_selection
 
-n_days_lookahead = int(input('Please input the length of days lookahead in {5, 7, 15, 30, 45, 60, 90, 120}: '))
-
-if(n_days_lookahead not in [5, 7, 15, 30, 45, 60, 90, 120]):
-    print('Input does not meet requirements.')
-    exit()
-
-data_type = str(input('Please specify the coverage of the data {A - Manufacturer 1, B - Manufacturer 2, C - Manufacturer 1 & 2}: '))
-
-if(data_type not in ['A', 'B', 'C']):
-    print('Input does not meet requirements.')
-    exit()
-
-dit_str = {'A': 'mc1', 'B': 'mc2', 'C': 'mc1_mc2'}
+n_days_lookahead, data_type, data_folder_name_dict, model_type, model_folder_name_dict = model_and_dataset_selection.train_select_online()
 
 
 def loadData():
 
-    X_train = np.load('../data/' + dit_str[data_type] + '/' + str(n_days_lookahead) + '_days_lookahead/smart_train.npy', allow_pickle=True)
-    y_train = np.load('../data/' + dit_str[data_type] + '/' + str(n_days_lookahead) + '_days_lookahead/train_labels.npy', allow_pickle=True)
-    X_test = np.load('../data/' + dit_str[data_type] + '/' + str(n_days_lookahead) + '_days_lookahead/smart_test.npy', allow_pickle=True)
-    y_test = np.load('../data/' + dit_str[data_type] + '/' + str(n_days_lookahead) + '_days_lookahead/test_labels.npy', allow_pickle=True)
+    X_train = np.load('../data/' + data_folder_name_dict[data_type] + '/' + str(n_days_lookahead) + '_days_lookahead/smart_train.npy', allow_pickle=True)
+    y_train = np.load('../data/' + data_folder_name_dict[data_type] + '/' + str(n_days_lookahead) + '_days_lookahead/train_labels.npy', allow_pickle=True)
+    X_test = np.load('../data/' + data_folder_name_dict[data_type] + '/' + str(n_days_lookahead) + '_days_lookahead/smart_test.npy', allow_pickle=True)
+    y_test = np.load('../data/' + data_folder_name_dict[data_type] + '/' + str(n_days_lookahead) + '_days_lookahead/test_labels.npy', allow_pickle=True)
     X_train = X_train.astype('float32')
     y_train = y_train.astype('float32')
     X_test = X_test.astype('float32')
@@ -46,6 +35,7 @@ def loadData():
     np.random.shuffle(X_train)
     np.random.set_state(state)
     np.random.shuffle(y_train)
+    np.random.set_state(state)
     np.random.shuffle(X_test)
     np.random.set_state(state)
     np.random.shuffle(y_test)
@@ -64,12 +54,8 @@ print('------------------ LSTM ------------------')
 num_epochs = 1500 # 1500 , 55
 batch_size = 128
 lr = 0.0002
-if(dit_str[data_type] != 'mc1_no_aging_attr'):
-    input_size = 11
-    hidden_size = 64
-else:
-    input_size = 3
-    hidden_size = 8
+input_size = 11
+hidden_size = 64
 output_size = 1
 num_layers = 2
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
@@ -79,8 +65,8 @@ print(device)
 model = LSTM(input_size=input_size, hidden_size=hidden_size, num_layers=num_layers, output_size=output_size).to(device)
 criterion = nn.BCELoss()
 optimizer = torch.optim.Adam(model.parameters(), lr=lr)
-torch.save(model.state_dict(), '../trained_model/' + dit_str[data_type] + '/' + str(n_days_lookahead) + '_days_lookahead/lstm_online.pth')
-torch.save(optimizer.state_dict(), '../trained_model/' + dit_str[data_type] + '/' + str(n_days_lookahead) + '_days_lookahead/lstm_optimizer_online.pth')
+torch.save(model.state_dict(), '../trained_model/' + model_folder_name_dict[model_type] + '/' + str(n_days_lookahead) + '_days_lookahead/lstm_online.pth')
+torch.save(optimizer.state_dict(), '../trained_model/' + model_folder_name_dict[model_type] + '/' + str(n_days_lookahead) + '_days_lookahead/lstm_optimizer_online.pth')
 
 train_dataset = DatasetUtil(X_train, y_train)
 test_dataset = DatasetUtil(X_test, y_test)
@@ -96,8 +82,8 @@ for epoch in range(num_epochs):
     for i, (X, y) in enumerate(train_loader):
         model = LSTM(input_size=input_size, hidden_size=hidden_size, num_layers=num_layers, output_size=output_size).to(device)
         optimizer = torch.optim.Adam(model.parameters(), lr=lr)
-        model.load_state_dict(torch.load('../trained_model/' + dit_str[data_type] + '/' + str(n_days_lookahead) + '_days_lookahead/lstm_online.pth'))
-        optimizer.load_state_dict(torch.load('../trained_model/' + dit_str[data_type] + '/' + str(n_days_lookahead) + '_days_lookahead/lstm_optimizer_online.pth'))
+        model.load_state_dict(torch.load('../trained_model/' + model_folder_name_dict[model_type] + '/' + str(n_days_lookahead) + '_days_lookahead/lstm_online.pth'))
+        optimizer.load_state_dict(torch.load('../trained_model/' + model_folder_name_dict[model_type] + '/' + str(n_days_lookahead) + '_days_lookahead/lstm_optimizer_online.pth'))
 
         X = X.to(device)
         y = y.to(device)
@@ -110,8 +96,8 @@ for epoch in range(num_epochs):
 
         Loss_list.append(loss.item())
 
-        torch.save(model.state_dict(), '../trained_model/' + dit_str[data_type] + '/' + str(n_days_lookahead) + '_days_lookahead/lstm_online.pth')
-        torch.save(optimizer.state_dict(), '../trained_model/' + dit_str[data_type] + '/' + str(n_days_lookahead) + '_days_lookahead/lstm_optimizer_online.pth')
+        torch.save(model.state_dict(), '../trained_model/' + model_folder_name_dict[model_type] + '/' + str(n_days_lookahead) + '_days_lookahead/lstm_online.pth')
+        torch.save(optimizer.state_dict(), '../trained_model/' + model_folder_name_dict[model_type] + '/' + str(n_days_lookahead) + '_days_lookahead/lstm_optimizer_online.pth')
 
         pass
 
@@ -122,7 +108,7 @@ for epoch in range(num_epochs):
         total = 0
         for i, (X, y) in enumerate(test_loader):
             model = model = LSTM(input_size=input_size, hidden_size=hidden_size, num_layers=num_layers, output_size=output_size).to(device)
-            model.load_state_dict(torch.load('../trained_model/' + dit_str[data_type] + '/' + str(n_days_lookahead) + '_days_lookahead/lstm_online.pth'))
+            model.load_state_dict(torch.load('../trained_model/' + model_folder_name_dict[model_type] + '/' + str(n_days_lookahead) + '_days_lookahead/lstm_online.pth'))
             X = X.to(device)
             y = y.to(device)
 
@@ -143,7 +129,7 @@ y_true = []
 total = 0
 for i, (X, y) in enumerate(test_loader):
     model = model = LSTM(input_size=input_size, hidden_size=hidden_size, num_layers=num_layers, output_size=output_size).to(device)
-    model.load_state_dict(torch.load('../trained_model/' + dit_str[data_type] + '/' + str(n_days_lookahead) + '_days_lookahead/lstm_online.pth'))
+    model.load_state_dict(torch.load('../trained_model/' + model_folder_name_dict[model_type] + '/' + str(n_days_lookahead) + '_days_lookahead/lstm_online.pth'))
     X = X.to(device)
     y = y.to(device)
     with torch.no_grad():
@@ -154,5 +140,5 @@ for i, (X, y) in enumerate(test_loader):
         y_true.append(y[j].cpu())
 
 print_all_metrics(np.asarray(y_true).astype('int'), np.asarray(y_predicted))
-torch.save(model.state_dict(), '../trained_model/' + dit_str[data_type] + '/' + str(n_days_lookahead) + '_days_lookahead/lstm_online.pth')
+torch.save(model.state_dict(), '../trained_model/' + model_folder_name_dict[model_type] + '/' + str(n_days_lookahead) + '_days_lookahead/lstm_online.pth')
 print('Done')

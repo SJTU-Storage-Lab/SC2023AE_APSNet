@@ -13,33 +13,23 @@ from sklearn import datasets
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import StandardScaler
 
-from model.NN import NN, DatasetUtil
+from utils.NN import NN, DatasetUtil
 
-n_days_lookahead = int(input('Please input the length of days lookahead in {5, 7, 15, 30, 45, 60, 90, 120}: '))
+from utils import model_and_dataset_selection
 
-if(n_days_lookahead not in [5, 7, 15, 30, 45, 60, 90, 120]):
-    print('Input does not meet requirements.')
-    exit()
-
-data_type = str(input('Please specify the coverage of the data {A - Manufacturer 1, B - Manufacturer 2, C - Manufacturer 1 & 2, D - Unbalanced}:  '))
-
-if(data_type not in ['A', 'B', 'C', 'D']):
-    print('Input does not meet requirements.')
-    exit()
-
-dit_str = {'A': 'mc1', 'B': 'mc2', 'C': 'mc1_mc2', 'D': 'unbalanced'}
+n_days_lookahead, data_type, data_folder_name_dict, model_type, model_folder_name_dict = model_and_dataset_selection.train_select_offline()
 
 
 def loadData():
 
-    if dit_str[data_type] not in ('unbalanced'):
-        X_train = np.load('../data/' + dit_str[data_type] + '/' + str(n_days_lookahead) + '_days_lookahead/smart_train.npy', allow_pickle=True)
-        y_train = np.load('../data/' + dit_str[data_type] + '/' + str(n_days_lookahead) + '_days_lookahead/train_labels.npy', allow_pickle=True)
+    if data_folder_name_dict[data_type] != 'C':
+        X_train = np.load('../data/' + data_folder_name_dict[data_type] + '/' + str(n_days_lookahead) + '_days_lookahead/smart_train.npy', allow_pickle=True)
+        y_train = np.load('../data/' + data_folder_name_dict[data_type] + '/' + str(n_days_lookahead) + '_days_lookahead/train_labels.npy', allow_pickle=True)
     else:
-        X_train = np.load('../data/' + dit_str[data_type] + '/' + str(n_days_lookahead) + '_days_lookahead/smart_train_rf.npy', allow_pickle=True)
-        y_train = np.load('../data/' + dit_str[data_type] + '/' + str(n_days_lookahead) + '_days_lookahead/train_labels_rf.npy', allow_pickle=True)
-    X_test = np.load('../data/' + dit_str[data_type] + '/' + str(n_days_lookahead) + '_days_lookahead/smart_test.npy', allow_pickle=True)
-    y_test = np.load('../data/' + dit_str[data_type] + '/' + str(n_days_lookahead) + '_days_lookahead/test_labels.npy', allow_pickle=True)
+        X_train = np.load('../data/' + data_folder_name_dict[data_type] + '/' + str(n_days_lookahead) + '_days_lookahead/smart_train_rf.npy', allow_pickle=True)
+        y_train = np.load('../data/' + data_folder_name_dict[data_type] + '/' + str(n_days_lookahead) + '_days_lookahead/train_labels_rf.npy', allow_pickle=True)
+    X_test = np.load('../data/' + data_folder_name_dict[data_type] + '/' + str(n_days_lookahead) + '_days_lookahead/smart_test.npy', allow_pickle=True)
+    y_test = np.load('../data/' + data_folder_name_dict[data_type] + '/' + str(n_days_lookahead) + '_days_lookahead/test_labels.npy', allow_pickle=True)
     X_train = X_train.astype('float32')
     y_train = y_train.astype('float32')
     X_test = X_test.astype('float32')
@@ -65,12 +55,8 @@ print('------------------ NN ------------------')
 num_epochs = 1500
 batch_size = 512
 lr = 0.0002
-if(dit_str[data_type] != 'mc1_no_aging_attr'):
-    input_size = 330
-    hidden_size = 512
-else:
-    input_size = 90
-    hidden_size = 128
+input_size = 330
+hidden_size = 512
 output_size = 1
 num_layers = 2
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
@@ -144,5 +130,5 @@ with torch.no_grad():
             y_true.append(y[j].cpu())
 
 print_all_metrics(np.asarray(y_true).astype('int'), np.asarray(y_predicted))
-torch.save(model.state_dict(), '../trained_model/' + dit_str[data_type] + '/' + str(n_days_lookahead) + '_days_lookahead/nn.pth')
+torch.save(model.state_dict(), '../trained_model/' + model_folder_name_dict[model_type] + '/' + str(n_days_lookahead) + '_days_lookahead/nn.pth')
 print('Done')

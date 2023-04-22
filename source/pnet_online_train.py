@@ -5,40 +5,29 @@ import numpy as np
 import torch.nn.functional as F
 import matplotlib.pyplot as plt
 from sklearn import metrics
-from model.PNet import LSTM, NN, PSiameseNetwork, DatasetUtil, ContrastiveLoss
+from utils.PNet import LSTM, NN, PSiameseNetwork, DatasetUtil, ContrastiveLoss
 import joblib
+from utils import model_and_dataset_selection
 
-n_days_lookahead = int(input('Please input the length of days lookahead in {5, 7, 15, 30, 45, 60, 90, 120}: '))
-
-if(n_days_lookahead not in [5, 7, 15, 30, 45, 60, 90, 120]):
-    print('Input does not meet requirements.')
-    exit()
-
-data_type = str(input('Please specify the coverage of the data {A - Manufacturer 1, B - Manufacturer 2, C - Manufacturer 1 & 2, D - Unbalanced}:  '))
-
-if(data_type not in ['A', 'B', 'C', 'D']):
-    print('Input does not meet requirements.')
-    exit()
-
-dit_str = {'A': 'mc1', 'B': 'mc2', 'C': 'mc1_mc2', 'D': 'unbalanced'}
+n_days_lookahead, data_type, data_folder_name_dict, model_type, model_folder_name_dict = model_and_dataset_selection.train_select_online()
 
 
 def loadData():
 
-    if dit_str[data_type] not in ('unbalanced'):
-        X_train = np.load('../data/' + dit_str[data_type] + '/' + str(n_days_lookahead) + '_days_lookahead/smart_train.npy', allow_pickle=True)
-        y_train = np.load('../data/' + dit_str[data_type] + '/' + str(n_days_lookahead) + '_days_lookahead/train_labels.npy', allow_pickle=True)
+    if data_folder_name_dict[data_type] != 'C':
+        X_train = np.load('../data/' + data_folder_name_dict[data_type] + '/' + str(n_days_lookahead) + '_days_lookahead/smart_train.npy', allow_pickle=True)
+        y_train = np.load('../data/' + data_folder_name_dict[data_type] + '/' + str(n_days_lookahead) + '_days_lookahead/train_labels.npy', allow_pickle=True)
     else:
-        X_train = np.load('../data/' + dit_str[data_type] + '/' + str(n_days_lookahead) + '_days_lookahead/smart_train_pnet.npy', allow_pickle=True)
-        y_train = np.load('../data/' + dit_str[data_type] + '/' + str(n_days_lookahead) + '_days_lookahead/train_labels_pnet.npy', allow_pickle=True)
+        X_train = np.load('../data/' + data_folder_name_dict[data_type] + '/' + str(n_days_lookahead) + '_days_lookahead/smart_train_pnet.npy', allow_pickle=True)
+        y_train = np.load('../data/' + data_folder_name_dict[data_type] + '/' + str(n_days_lookahead) + '_days_lookahead/train_labels_pnet.npy', allow_pickle=True)
     aging = np.load('../data/aging.npy')
     for i in range(0, len(y_train)):
         if y_train[i] == 0:
             y_train[i] = 1
         else:
             y_train[i] = 0
-    X_test = np.load('../data/' + dit_str[data_type] + '/' + str(n_days_lookahead) + '_days_lookahead/smart_test.npy', allow_pickle=True)
-    y_test = np.load('../data/' + dit_str[data_type] + '/' + str(n_days_lookahead) + '_days_lookahead/test_labels.npy', allow_pickle=True)
+    X_test = np.load('../data/' + data_folder_name_dict[data_type] + '/' + str(n_days_lookahead) + '_days_lookahead/smart_test.npy', allow_pickle=True)
+    y_test = np.load('../data/' + data_folder_name_dict[data_type] + '/' + str(n_days_lookahead) + '_days_lookahead/test_labels.npy', allow_pickle=True)
     X_train = X_train.astype('float32')
     aging = aging.astype('float32')
     y_train = y_train.astype('float32')
@@ -92,8 +81,8 @@ pnet = PSiameseNetwork(input_size_smart=input_size_smart, input_size_aging=input
 
 criterion = ContrastiveLoss()
 optimizer = torch.optim.Adam(pnet.parameters(), lr=lr)
-torch.save(pnet.state_dict(), '../trained_model/' + dit_str[data_type] + '/' + str(n_days_lookahead) + '_days_lookahead/pnet_online.pth')
-torch.save(optimizer.state_dict(), '../trained_model/' + dit_str[data_type] + '/' + str(n_days_lookahead) + '_days_lookahead/pnet_optimizer_online.pth')
+torch.save(pnet.state_dict(), '../trained_model/' + model_folder_name_dict[model_type] + '/' + str(n_days_lookahead) + '_days_lookahead/pnet_online.pth')
+torch.save(optimizer.state_dict(), '../trained_model/' + model_folder_name_dict[model_type] + '/' + str(n_days_lookahead) + '_days_lookahead/pnet_optimizer_online.pth')
 
 X_train_smart, aging, y_train, X_test_smart, y_test = loadData()
 
@@ -121,8 +110,8 @@ for epoch in range(num_epochs):
                                output_size_smart=output_size_smart, output_size_aging=output_size_aging,
                                output_size_model=output_size_model)
         optimizer = torch.optim.Adam(pnet.parameters(), lr=lr)
-        pnet.load_state_dict(torch.load('../trained_model/' + dit_str[data_type] + '/' + str(n_days_lookahead) + '_days_lookahead/pnet_online.pth'))
-        optimizer.load_state_dict(torch.load('../trained_model/' + dit_str[data_type] + '/' + str(n_days_lookahead) + '_days_lookahead/pnet_optimizer_online.pth'))
+        pnet.load_state_dict(torch.load('../trained_model/' + model_folder_name_dict[model_type] + '/' + str(n_days_lookahead) + '_days_lookahead/pnet_online.pth'))
+        optimizer.load_state_dict(torch.load('../trained_model/' + model_folder_name_dict[model_type] + '/' + str(n_days_lookahead) + '_days_lookahead/pnet_optimizer_online.pth'))
 
         X = X.to(device)
         aging = aging.to(device)
@@ -137,8 +126,8 @@ for epoch in range(num_epochs):
 
         Loss_list.append(loss_contrastive.item())
 
-        torch.save(pnet.state_dict(), '../trained_model/' + dit_str[data_type] + '/' + str(n_days_lookahead) + '_days_lookahead/pnet_online.pth')
-        torch.save(optimizer.state_dict(), '../trained_model/' + dit_str[data_type] + '/' + str(n_days_lookahead) + '_days_lookahead/pnet_optimizer_online.pth')
+        torch.save(pnet.state_dict(), '../trained_model/' + model_folder_name_dict[model_type] + '/' + str(n_days_lookahead) + '_days_lookahead/pnet_online.pth')
+        torch.save(optimizer.state_dict(), '../trained_model/' + model_folder_name_dict[model_type] + '/' + str(n_days_lookahead) + '_days_lookahead/pnet_optimizer_online.pth')
         pass
 
     # ----------- PNet -----------
@@ -162,7 +151,7 @@ for epoch in range(num_epochs):
                     y_true.append(y[j].cpu())
 
         print_all_metrics(np.asarray(y_true).astype('int'), np.asarray(y_predicted))
-        torch.save(pnet.state_dict(), '../trained_model/' + dit_str[data_type] + '/' + str(n_days_lookahead) + '_days_lookahead/pnet_checkpoint/pnet_online_'+str(epoch)+'.pth')
+        torch.save(pnet.state_dict(), '../trained_model/' + model_folder_name_dict[model_type] + '/' + str(n_days_lookahead) + '_days_lookahead/pnet_checkpoint/pnet_online_'+str(epoch)+'.pth')
 
 print('final testing')
 y_predicted = []
