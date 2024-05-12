@@ -1,4 +1,4 @@
-# USENIX-ATC-2024-AE-APTN
+# USENIX-ATC-2024-AE-APTN (APSNet)
 Supplemental code and dataset for Exploit both SMART Attributes and NAND Flash Wear Characteristics to Effectively Forecast SSD-based Storage Failures in Clusters.
 
 We provide two experiment reproduction schemes: 
