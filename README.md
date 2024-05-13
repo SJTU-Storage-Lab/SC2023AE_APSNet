@@ -35,7 +35,7 @@ The APTN code is released under the BSD-3 [License](LICENSE).
 - Minimum hardware requirements: 2 GHz dual-core x86 processor or better, 16 GB system memory, 40GB free hard drive space, and NVIDIA GPU which could support CUDA 11.1 and cudnn 8.0.5.
 ### Software Dependencies
 - It is mainly developed in g++ 7.5.0 and Python 3.7.11. The key libraries should be included: conda 4.10.3, numpy 1.19.5, pandas 0.24.2, pytorch 1.8.0, sklearn 1.0.1, Matplotlib 3.5.0, cuda 11.1 and cudnn 8.0.5
-- To facilitate the software dependencies setup, [/APSNet/environment.yml]( https://github.com/SJTU-Storage-Lab/USENIX-ATC-2024-AE-APTN/tree/main/environment.yml) which illustrates all the libraries and dependencies versions is provided. It can be loaded as the initial setup in conda environment.
+- To facilitate the software dependencies setup, [/USENIX-ATC-2024-AE-APTN/environment.yml]( https://github.com/SJTU-Storage-Lab/USENIX-ATC-2024-AE-APTN/tree/main/environment.yml) which illustrates all the libraries and dependencies versions is provided. It can be loaded as the initial setup in conda environment.
 ## SMART Dataset
 We use Alibaba's [Large-scale SSD Failure Prediction Dataset](https://tianchi.aliyun.com/dataset/dataDetail?dataId=95044) [1] as our SMART dataset. We only use Triple Level Cell (TLC) data in this dataset, which corresponds to SSD models MC1 and MC2.
 
@@ -61,7 +61,7 @@ The SSD aging BEC Dataset is composed of the following files:
 We hope that the released SSD Aging BEC Dataset will enable future studies to quantify the real-world SSD failure prediction research.
 
 ## Dataset Prepare
-- This step is optional since all datasets used for machine learning models' training and testing process are already well-prepared and saved in [APSNet/data](https://github.com/YunfeiGu/APSNet/tree/main/data). 
+- This step is optional since all datasets used for machine learning models' training and testing process are already well-prepared and saved in [USENIX-ATC-2024-AE-APTN/data](https://github.com/YunfeiGu/APSNet/tree/main/data). 
 - Due to the Intellectual Property policy of the Raw SSD BEC aging data, we only provide the normalized and well-processed SSD BEC aging data in [USENIX-ATC-2024-AE-APTN/data/aging.npy]( https://github.com/SJTU-Storage-Lab/USENIX-ATC-2024-AE-APTN/tree/main/data/aging.npy).
 - you can run the following scripts to execute all steps for preparing the SMART training and testing dataset: 
 
@@ -73,17 +73,17 @@ python3 slidingWindow.py
 ```
 Note: while running silidingWindow.py, it will notify that 'Please input the length of days lookahead in range [3, 120]:'. In our experiment, we set N to 5, 7, 15, 30, 45, 60, 90 and 120.  After settling down the N value, it will generate the SMART training and testing dataset for evaluating learning models N_days_lookahead prediction performance.
 
-In [/APSNet/data]( https://github.com/SJTU-Storage-Lab/SC2023AE_APSNet/tree/main/data), there are one npy file named aging.npy and 8 subfolders. [aging.npy]( https://github.com/SJTU-Storage-Lab/SC2023AE_APSNet/tree/main/data/aging.npy) is the SSD Aging BEC Dataset we proposed and collected. It is the dataset that needs to be fed in the sub-network 2.1b of APSNet. In each subfolder, there is an SSD SMART dataset that needs to be fed in the sub-network 2.1a of APSNet and other baseline models including RF, SVM, LR, DT, KNN, NN, and LSTM. (To understand the APSNet network structure and how these two types of dataset feed-in APSNet, please check Figure 8, Section III-B and III-C in our paper). 
+In [/USENIX-ATC-2024-AE-APTN/data]( https://github.com/SJTU-Storage-Lab/USENIX-ATC-2024-AE-APTN/tree/main/data), there are one npy file named aging.npy and 8 subfolders. [aging.npy]( https://github.com/SJTU-Storage-Lab/USENIX-ATC-2024-AE-APTN/tree/main/data/aging.npy) is the SSD Aging BEC Dataset we proposed and collected. It is the dataset that needs to be fed in the sub-network 2.1b of APTN. In each subfolder, there is an SSD SMART dataset that needs to be fed in the sub-network 2.1a of APTN and other baseline models including RF, SVM, LR, DT, KNN, NN, and LSTM. (To understand the APTN network structure and how these two types of dataset feed-in APTN, please check Figure 8, Sections III-B and III-C in our paper). 
 
-These SMART datasets in each subfolder have been processed by [APSNet/slidingWindow.py]( https://github.com/SJTU-Storage-Lab/SC2023AE_APSNet/tree/main/slidingWindow.py) already, in order to train and test all learning models for evaluating N days lookahead failure prediction performance.
+These SMART datasets in each subfolder have been processed by [USENIX-ATC-2024-AE-APTN/slidingWindow.py]( https://github.com/SJTU-Storage-Lab/USENIX-ATC-2024-AE-APTN/tree/main/slidingWindow.py) already, in order to train and test all learning models for evaluating N days lookahead failure prediction performance.
 
 For example, if you want to evaluate the learning models failure prediction performance in 5 days ahead on all metrics, you have to check out the following dataset: 
 
-- [APSNet/data/aging.npy]( https://github.com/SJTU-Storage-Lab/SC2023AE_APSNet/tree/main/data/aging.npy): Processed SSD Aging BEC Dataset. It is used by the sub-network 2.1b of APSNet.
-- [APSNet/data/5_days_lookahead/smart_train.npy]( https://github.com/SJTU-Storage-Lab/SC2023AE_APSNet/tree/main/data/5_days_lookahead/smart_train.npy): Processed SMART dataset used for all learning model training on SSD failure prediction in 5 days ahead. 
-- [APSNet/data/5_days_lookahead/test_labels.npy]( https://github.com/SJTU-Storage-Lab/SC2023AE_APSNet/tree/main/data/5_days_lookahead/test_labels.npy): Labels of aforementioned SMART traininig dataset.
-- [APSNet/data/5_days_lookahead/smart_test.npy]( https://github.com/SJTU-Storage-Lab/SC2023AE_APSNet/tree/main/data/smart_test.npy): Processed SMART dataset used for all learning model testing on SSD failure prediction in 5 days ahead. 
-- [APSNet/data/5_days_lookahead/test_labels.npy]( https://github.com/SJTU-Storage-Lab/SC2023AE_APSNet/tree/main/data/test_labels.npy): Labels of aforementioned SMART testing dataset.
+- [USENIX-ATC-2024-AE-APTN/data/aging.npy]( https://github.com/SJTU-Storage-Lab/USENIX-ATC-2024-AE-APTN/tree/main/data/aging.npy): Processed SSD Aging BEC Dataset. It is used by the sub-network 2.1b of APTN.
+- [USENIX-ATC-2024-AE-APTN/data/5_days_lookahead/smart_train.npy]( https://github.com/SJTU-Storage-Lab/USENIX-ATC-2024-AE-APTN/tree/main/data/5_days_lookahead/smart_train.npy): Processed SMART dataset used for all learning model training on SSD failure prediction in 5 days ahead. 
+- [USENIX-ATC-2024-AE-APTN/data/5_days_lookahead/test_labels.npy]( https://github.com/SJTU-Storage-Lab/USENIX-ATC-2024-AE-APTN/tree/main/data/5_days_lookahead/test_labels.npy): Labels of aforementioned SMART traininig dataset.
+- [USENIX-ATC-2024-AE-APTN/data/5_days_lookahead/smart_test.npy]( https://github.com/SJTU-Storage-Lab/USENIX-ATC-2024-AE-APTN/tree/main/data/smart_test.npy): Processed SMART dataset used for all learning model testing on SSD failure prediction in 5 days ahead. 
+- [USENIX-ATC-2024-AE-APTN/data/5_days_lookahead/test_labels.npy]( https://github.com/SJTU-Storage-Lab/USENIX-ATC-2024-AE-APTN/tree/main/data/test_labels.npy): Labels of aforementioned SMART testing dataset.
 ## Instructions on Experiment using the Local Environment
 
 ### Initial Setup
@@ -100,8 +100,8 @@ Then activate the experimental environment:
 conda activate apsnet
 ```
 ### Model Training
-This step is also optional because all models have been well-trained and saved in [APSNet/trained_model]( https://github.com/SJTU-Storage-Lab/SC2023AE_APSNet/tree/main/trained_model). The proposed key algorithm is APSNet. In the source code structure, APSNet contains two parts. One is Pnet which is the Pseudo Siamese Network in this network, the other one is RF which is used for RF-based adaptive discriminator. In Exp\#1, the baseline algorithms are RF, DT, LR, KNN, NN, LSTM, SVM. In Exp#2, the compared methods are the APSNet
-with alternatives of sub-networks 2.a and 2.b, called APSNet_LL, APSNet_GG, and APSNet_GL respectively (Please check the Table XI in Section IV of our paper). In Exp\#3, the baseline is the APSNet without RF-based adaptive discriminator, called APSNet_NRF (Please check the Exp#3 in Section IV of our paper). The train source code of each model has been involved in [APSNet/main/model_src](https://github.com/YunfeiGu/APSNet/tree/main/model_src). Please read [APSNet/main/model_src/README.md](https://github.com/YunfeiGu/APSNet/tree/main/model_src/README.md) to understand how each learning model corresponds to each python file.
+This step is also optional because all models have been well-trained and saved in [USENIX-ATC-2024-AE-APTN/trained_model]( https://github.com/SJTU-Storage-Lab/USENIX-ATC-2024-AE-APTN/tree/main/trained_model). The proposed key algorithm is APTN. In the source code structure, APTN contains two parts. One is Pnet which is the Pseudo Siamese Network in this network, the other one is RF which is used for RF-based adaptive discriminator. In Exp\#1, the baseline algorithms are RF, DT, LR, KNN, NN, LSTM, SVM. In Exp#2, the compared methods are the APTN
+with alternatives of sub-networks 2.a and 2.b, called APTN_LL, APTN_GG, and APTN_GL respectively (Please check Table XI in Section IV of our paper). In Exp\#3, the baseline is the APTN without RF-based adaptive discriminator, called APTN_NRF (Please check Exp#3 in Section IV of our paper). The train source code of each model has been involved in [USENIX-ATC-2024-AE-APTN/main/model_src](https://github.com/YunfeiGu/APSNet/tree/main/model_src). Please read [APSNet/main/model_src/README.md](https://github.com/YunfeiGu/APSNet/tree/main/model_src/README.md) to understand how each learning model corresponds to each python file.
 
 The commands for each machine learning model training:
 ```shell
@@ -153,7 +153,7 @@ python3 pnet_2gru.py
 ```
 Note: While running each model training script, it will notify that 'Please input the length of N days lookahead in the range [3, 120]:'. In our experiment, we set N to 5, 7, 15, 30, 45, 60, 90 and 120.  After settling down the N value, the training of the corresponding learning model will be trained and the well-trained model will be saved in the corresponding subfolder. 
 
-For example, if you want to train the RF learning model for evaluating the performance on 5 days lookahead SSD failure prediction, input 5 and the well-trained RF learning model will be saved as [rf.pkl]( https://github.com/SJTU-Storage-Lab/SC2023AE_APSNet/tree/main/trained_model/5_days_lookahead/rf.pkl) in subfolder [APSNet/trained_model/5_days_lookahead]( https://github.com/SJTU-Storage-Lab/SC2023AE_APSNet/tree/main/trained_model/5_days_lookahead).
+For example, if you want to train the RF learning model for evaluating the performance on 5 days lookahead SSD failure prediction, input 5 and the well-trained RF learning model will be saved as [rf.pkl]( https://github.com/SJTU-Storage-Lab/USENIX-ATC-2024-AE-APTN/tree/main/trained_model/5_days_lookahead/rf.pkl) in subfolder [USENIX-ATC-2024-AE-APTN/trained_model/5_days_lookahead]( https://github.com/SJTU-Storage-Lab/USENIX-ATC-2024-AE-APTN/tree/main/trained_model/5_days_lookahead).
 
 In each subfolder, there are 11 well-trained learning models:
 
@@ -171,7 +171,7 @@ In each subfolder, there are 11 well-trained learning models:
 
 ### Model Testing and Reproducing Experiment Results
 
-To reproduce all experiment results, we provide the jupyter notebook scripts to evaluate the failure prediction performance on all metrics in various days lookahead. Please read the check-list artifact check-list in Section~\ref{sec:check-list} and model testing instruction in the [APSNet/README.md]( https://github.com/SJTU-Storage-Lab/SC2023AE_APSNet/tree/main/README.md) file. 
+To reproduce all experiment results, we provide the jupyter notebook scripts to evaluate the failure prediction performance on all metrics in various days lookahead. Please read the check-list artifact check-list in Section~\ref{sec:check-list} and model testing instruction in the [USENIX-ATC-2024-AE-APTN/README.md]( https://github.com/SJTU-Storage-Lab/USENIX-ATC-2024-AE-APTN/tree/main/README.md) file. 
 Note: While running each model testing script, it will notify that 'Please input the length of N days lookahead in the range [3, 120]:'. In our experiment, we set N to 5, 7, 15, 30, 45, 60, 90 and 120. After settling down the N value, the testing of the corresponding learning model will start and finally print the result of each metric in N days lookahead failure prediction. 
 Use jupyter notebook to open each script and run. For example:
 ```shell
@@ -181,24 +181,24 @@ jupyter notebook --no-browser --port=8001
 Use your local browser to open http://server\_ip:8001/
 Then click 'RUN', and it will run the model testing and print all metrics' results
 
- - [metrics_apsnet.ipynb]( https://github.com/SJTU-Storage-Lab/SC2023AE_APSNet/tree/main/metrics_apsnet.ipynb)is a jupyter notebook script that used for testing our proposed APSNet on all metrics. 
- - [metrics_lstm.ipynb]( https://github.com/SJTU-Storage-Lab/SC2023AE_APSNet/tree/main/metrics_lstm.ipynb) is a jupyter notebook script that used for testing lstm on all metrics.
- - [metrics_nn.ipynb]( https://github.com/SJTU-Storage-Lab/SC2023AE_APSNet/tree/main/metrics_nn.ipynb) is a jupyter notebook script that used for testing nn on all metrics.
- - [metrics_rf_knn_lr_dt_svm.ipynb]( https://github.com/SJTU-Storage-Lab/SC2023AE_APSNet/tree/main/metrics_rf_knn_lr_dt_svm.ipynb) is a jupyter notebook script that used for testing RF, KNN, LR, DT, SVM learning models on all metrics. 
- - [metrics_pnet_2gru.ipynb]( https://github.com/SJTU-Storage-Lab/SC2023AE_APSNet/tree/main/metrics_pnet_2gru.ipynb) is a jupyter notebook script that used for testing APSNet_GG (explained in Section IV Exp#2 in our paper) model on metrics of TPR, FPR, AUC, F1-score.
- - [metrics_pnet_2lstm.ipynb]( https://github.com/SJTU-Storage-Lab/SC2023AE_APSNet/tree/main/metrics_2lstm.ipynb) is a jupyter notebook script that used for testing APSNet\_LL (explained in Section IV Exp#2 in our paper) model on metrics of TPR, FPR, AUC, F1-score.
- - [metrics_gru_lstm.ipynb]( https://github.com/SJTU-Storage-Lab/SC2023AE_APSNet/tree/main/metrics_gru_lstm.ipynb) is a jupyter notebook script that used for testing APSNet\_GL (explained in Section IV Exp#2 in our paper) model on metrics of TPR, FPR, AUC, F1-score.
- - [metrics_pnet.ipynb]( https://github.com/SJTU-Storage-Lab/SC2023AE_APSNet/tree/main/metrics_pnet.ipynb.ipynb) is a jupyter notebook script that used for testing APSNet\_NRF (explained in Section IV Exp#3 in our paper) model on metrics of TPR, FPR, AUC, F1-score.
+ - [metrics_apsnet.ipynb]( https://github.com/SJTU-Storage-Lab/USENIX-ATC-2024-AE-APTN/tree/main/metrics_apsnet.ipynb)is a jupyter notebook script that used for testing our proposed APSNet on all metrics. 
+ - [metrics_lstm.ipynb]( https://github.com/SJTU-Storage-Lab/USENIX-ATC-2024-AE-APTN/tree/main/metrics_lstm.ipynb) is a jupyter notebook script that used for testing lstm on all metrics.
+ - [metrics_nn.ipynb]( https://github.com/SJTU-Storage-Lab/USENIX-ATC-2024-AE-APTN/tree/main/metrics_nn.ipynb) is a jupyter notebook script that used for testing nn on all metrics.
+ - [metrics_rf_knn_lr_dt_svm.ipynb]( https://github.com/SJTU-Storage-Lab/USENIX-ATC-2024-AE-APTN/tree/main/metrics_rf_knn_lr_dt_svm.ipynb) is a jupyter notebook script that used for testing RF, KNN, LR, DT, SVM learning models on all metrics. 
+ - [metrics_pnet_2gru.ipynb]( https://github.com/SJTU-Storage-Lab/USENIX-ATC-2024-AE-APTN/tree/main/metrics_pnet_2gru.ipynb) is a jupyter notebook script that used for testing APTN_GG (explained in Section IV Exp#2 in our paper) model on metrics of TPR, FPR, AUC, F1-score.
+ - [metrics_pnet_2lstm.ipynb]( https://github.com/SJTU-Storage-Lab/USENIX-ATC-2024-AE-APTN/tree/main/metrics_2lstm.ipynb) is a jupyter notebook script that used for testing APTN\_LL (explained in Section IV Exp#2 in our paper) model on metrics of TPR, FPR, AUC, F1-score.
+ - [metrics_gru_lstm.ipynb]( https://github.com/SJTU-Storage-Lab/USENIX-ATC-2024-AE-APTN/tree/main/metrics_gru_lstm.ipynb) is a jupyter notebook script that used for testing APTN\_GL (explained in Section IV Exp#2 in our paper) model on metrics of TPR, FPR, AUC, F1-score.
+ - [metrics_pnet.ipynb]( https://github.com/SJTU-Storage-Lab/USENIX-ATC-2024-AE-APTN/tree/main/metrics_pnet.ipynb.ipynb) is a jupyter notebook script that used for testing APTN\_NRF (explained in Section IV Exp#3 in our paper) model on metrics of TPR, FPR, AUC, F1-score.
 
 The jupyter notebook scripts include:
 For Exp\#1:
 
-- [APSNet/metrics_lstm.ipynb]( https://github.com/SJTU-Storage-Lab/SC2023AE_APSNet/tree/main/metrics_lstm.ipynb)
-- [APSNet/metrics_nn.ipynb]( https://github.com/SJTU-Storage-Lab/SC2023AE_APSNet/tree/main/metrics_nn.ipynb)
-- [APSNet/metrics_rf_knn_lr_dt_svm.ipynb]( https://github.com/SJTU-Storage-Lab/SC2023AE_APSNet/tree/main/metrics_rf_knn_lr_dt_svm.ipynb)
-- [APSNet/metrics_apsnet.ipynb]( https://github.com/SJTU-Storage-Lab/SC2023AE_APSNet/tree/main/metrics_apsnet.ipynb)
+- [USENIX-ATC-2024-AE-APTN/metrics_lstm.ipynb]( https://github.com/SJTU-Storage-Lab/USENIX-ATC-2024-AE-APTN/tree/main/metrics_lstm.ipynb)
+- [USENIX-ATC-2024-AE-APTN/metrics_nn.ipynb]( https://github.com/SJTU-Storage-Lab/USENIX-ATC-2024-AE-APTN/tree/main/metrics_nn.ipynb)
+- [USENIX-ATC-2024-AE-APTN/metrics_rf_knn_lr_dt_svm.ipynb]( https://github.com/SJTU-Storage-Lab/USENIX-ATC-2024-AE-APTN/tree/main/metrics_rf_knn_lr_dt_svm.ipynb)
+- [USENIX-ATC-2024-AE-APTN/metrics_apsnet.ipynb]( https://github.com/SJTU-Storage-Lab/USENIX-ATC-2024-AE-APTN/tree/main/metrics_apsnet.ipynb)
 
-These jupyter notebook scripts are used for testing LSTM, NN, RF, KNN, LR, DT, SVM and proposed APSNet learning models on all metrics, including TPR, FPR, F1-score, AUC-score, Precision and AUC-ROC curve. 
+These jupyter notebook scripts are used for testing LSTM, NN, RF, KNN, LR, DT, SVM and proposed APTN learning models on all metrics, including TPR, FPR, F1-score, AUC-score, Precision and AUC-ROC curve. 
 
 Figure 11.a and Table VIII are statistics obtained from printed AUC results of these models testing via setting N days lookahead with various values. 
 
@@ -210,24 +210,24 @@ Figure 11.d and Table IX are statistics that obtained from F1-score results of t
 
 Table V is obtained from all precision results of these models while predicting failed and healthy SSD in various days ahead.
 
-Figure 12.a are statistics that obtained from ROC curves printed by [APSNet/metricsapsnet.ipynb]( https://github.com/SJTU-Storage-Lab/SC2023AE_APSNet/tree/main/metrics_apsnet.ipynb) via setting N days lookahead with 5, 7, 14, 30, 45, 60, 90 and 120.
+Figure 12.a are statistics that obtained from ROC curves printed by [USENIX-ATC-2024-AE-APTN/metricsapsnet.ipynb]( https://github.com/SJTU-Storage-Lab/USENIX-ATC-2024-AE-APTN/tree/main/metrics_apsnet.ipynb) via setting N days lookahead with 5, 7, 14, 30, 45, 60, 90 and 120.
 
-Figure 12.b Figure 12.c and Figure 12.d compare statistics that obtained from ROC curves printed by [APSNet/metrics_lstm.ipynb]( https://github.com/SJTU-Storage-Lab/SC2023AE_APSNet/tree/main/metrics_lstm.ipynb) and [APSNet/metrics_nn.ipynb]( https://github.com/SJTU-Storage-Lab/SC2023AE_APSNet/tree/main/metrics_nn.ipynb) with which are got from [APSNet/metrics_apsnet.ipynb]( https://github.com/SJTU-Storage-Lab/SC2023AE_APSNet/tree/main/metrics_apsnet.ipynb) by setting N with 7, 30 and 60. 
+Figure 12.b Figure 12.c and Figure 12.d compare statistics that obtained from ROC curves printed by [USENIX-ATC-2024-AE-APTN/metrics_lstm.ipynb]( https://github.com/SJTU-Storage-Lab/USENIX-ATC-2024-AE-APTN/tree/main/metrics_lstm.ipynb) and [USENIX-ATC-2024-AE-APTN/metrics_nn.ipynb]( https://github.com/SJTU-Storage-Lab/USENIX-ATC-2024-AE-APTN/tree/main/metrics_nn.ipynb) with which are got from [USENIX-ATC-2024-AE-APTN/metrics_apsnet.ipynb]( https://github.com/SJTU-Storage-Lab/USENIX-ATC-2024-AE-APTN/tree/main/metrics_apsnet.ipynb) by setting N with 7, 30 and 60. 
 
 Table X are statistics that are recorded while training all modeling as described in Section~\ref{sec:traininig} and testing models as mentioned above in this artifact evaluation instruction.
 
 For Exp#2:
-- [APSNet/metrics_pnet_2gru.ipynb]( https://github.com/SJTU-Storage-Lab/SC2023AE_APSNet/tree/main/metrics_pnet_2gru.ipynb)
-- [APSNet/metrics\_pnet\_2lstm.ipynb]( https://github.com/SJTU-Storage-Lab/SC2023AE_APSNet/tree/main/metrics_2lstm.ipynb)
-- [APSNet/metrics_gru_lstm.ipynb]( https://github.com/SJTU-Storage-Lab/SC2023AE_APSNet/tree/main/metrics_gru_lstm.ipynb)
+- [USENIX-ATC-2024-AE-APTN/metrics_pnet_2gru.ipynb]( https://github.com/SJTU-Storage-Lab/USENIX-ATC-2024-AE-APTN/tree/main/metrics_pnet_2gru.ipynb)
+- [USENIX-ATC-2024-AE-APTN/metrics\_pnet\_2lstm.ipynb]( https://github.com/SJTU-Storage-Lab/USENIX-ATC-2024-AE-APTN/tree/main/metrics_2lstm.ipynb)
+- [USENIX-ATC-2024-AE-APTN/metrics_gru_lstm.ipynb]( https://github.com/SJTU-Storage-Lab/USENIX-ATC-2024-AE-APTN/tree/main/metrics_gru_lstm.ipynb)
 
-These jupyter scripts are used for testing APSNet_GG, APSNet_LL, and APSNet_GL models on several metrics, including TPR, FPR, F1-score, and AUC-score. 
+These jupyter scripts are used for testing APTN_GG, APTN_LL, and APTN_GL models on several metrics, including TPR, FPR, F1-score, and AUC-score. 
 Figure 13.a, Figure 13.b, Figure 13.c and Figure 13.d are statistics obtained from printed AUC, TPR, FPR, and F1-score results respectively of these models testing via setting N days lookahead with various values.
 
 For Exp#3:
-- [APSNet/metrics_pnet.ipynb]( https://github.com/SJTU-Storage-Lab/SC2023AE_APSNet/tree/main/metrics_pnet.ipynb.ipynb)
+- [USENIX-ATC-2024-AE-APTN/metrics_pnet.ipynb]( https://github.com/SJTU-Storage-Lab/USENIX-ATC-2024-AE-APTN/tree/main/metrics_pnet.ipynb.ipynb)
 
-These jupyter notebook scripts are used for testing APSNet_NRF models on several metrics, including TPR, FPR, F1-score, and AUC-score. 
+These jupyter notebook scripts are used for testing APTN_NRF models on several metrics, including TPR, FPR, F1-score, and AUC-score. 
 Figure 14.a, Figure 14.b, Figure 14.c and Figure 14.d are statistics obtained from printed AUC, TPR, FPR, and F1-score results respectively of these models testing via setting N days lookahead with various values.
 
 ## Experiment using Container Image
@@ -274,7 +274,7 @@ ssh root@127.0.0.1 -p xxxx
 ### File Structure in Docker Image
 - After login the container, the main code is shown in directory: /root/apsnet
   ![location](https://user-images.githubusercontent.com/37954782/163811354-8dbc202f-7d5d-470f-b3a2-225d3585ac13.png)
- - The the file structure in docker image is the same as using local environment as described in [/APSNet/README.md]( https://github.com/SJTU-Storage-Lab/SC2023AE_APSNet/tree/main/README.md), except environment.yml, because all soft dependencies have been included in the container already.
+ - The the file structure in docker image is the same as using local environment as described in [/USENIX-ATC-2024-AE-APTN/README.md]( https://github.com/SJTU-Storage-Lab/USENIX-ATC-2024-AE-APTN/tree/main/README.md), except environment.yml, because all soft dependencies have been included in the container already.
 
 ### Initial Setup
 Activate the experimental environment:
@@ -283,4 +283,4 @@ Activate the experimental environment:
 conda activate apsnet
 ```
 ### Evaluation Instructions
-All the artifact instructions using container are the same as using the local environment that is described in described in [/APSNet/README.md]( https://github.com/SJTU-Storage-Lab/SC2023AE_APSNet/tree/main/README.md).
+All the artifact instructions using container are the same as using the local environment that is described in described in [/USENIX-ATC-2024-AE-APTN/README.md]( https://github.com/SJTU-Storage-Lab/USENIX-ATC-2024-AE-APTN/tree/main/README.md).
