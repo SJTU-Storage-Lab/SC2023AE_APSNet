@@ -9,7 +9,7 @@ We provide two experiment reproduction schemes:
 The project is structured as follows:
 
  - The folder [source](souce) contains learning models source code including offline learning models and online learning models.
- - The folder [source/metrics](source/metrics) contains evaluation source codes using metrics that are introduced in Section 5.1.2 in this paper.
+ - The folder [source/metrics](source/metrics) contains evaluation source codes using metrics that are introduced in Section 5.1.3 in this paper.
  - The folder [source/utils](source/utils) contains source codes of model definitions and common-used tools.
  - The folder [data/offline_dataset](data/offline_dataset) contains the files needed for offline models training and evaluation.
  - The folder [data/mc1_mc2](data/mc1_mc2) and [data/mc2](data/mc2) contains the pre-precessed dataset for training of online learning models. This experiment is used for reproduce the results of Exp#4 in Section 5.2.3 in this paper.
