@@ -1,6 +1,9 @@
 # USENIX-ATC-2024-AE-APTN (APSNet)
 Supplemental code and dataset for Exploit both SMART Attributes and NAND Flash Wear Characteristics to Effectively Forecast SSD-based Storage Failures in Clusters.
 
+Notably, the original name of the Pseudo Siamese Neural Network was Pseudo Twin Network, but due to being offensive, our project was renamed from APSNet to APTN halfway through. However, since there are many code files, some files still use the old naming. Therefore, it is declared here that APSNet and APTN are consistent in the code files.
+
+
 We provide two experiment reproduction schemes: 
 1. Experiment using Local Environment
 2. Experiment using Container Image
@@ -13,18 +16,18 @@ The project is structured as follows:
  - The folder [source/utils](source/utils) contains source codes of model definitions and common-used tools.
  - The folder [data/offline_dataset](data/offline_dataset) contains the files needed for offline models training and evaluation.
  - The folder [data/mc1_mc2](data/mc1_mc2) and [data/mc2](data/mc2) contains the pre-precessed dataset for training of online learning models. This experiment is used for reproduce the results of Exp#4 in Section 5.2.3 in this paper.
- - The folder [trained_model/offline_model](trained\_model/offline\_model) contains the well-trained APSNet, RF, LSTM, NN, DT, LR, SVM, KNN learning models in offline mode. These models are pre-trained and could be used for evalution directly.
- - The folder [trained_model/mc2](trained\_model/mc2) contains the well-trained APSNet, RF, LSTM, NN, DT, LR, SVM, KNN learning models in online mode. These models are pre-trained and could be used for evalution directly.
- - The folder [loss](loss) contains the loss records while training different learning models with various epoches.
- - The folder [log](log) contains the inference evaluation results logs of APSNet, RF, LSTM, NN, DT, LR, SVM, KNN learning model.
+ - The folder [trained_model/offline_model](trained\_model/offline\_model) contains the well-trained APTN, RF, LSTM, NN, DT, LR, SVM, KNN learning models in offline mode. These models are pre-trained and could be used for evalution directly.
+ - The folder [trained_model/mc2](trained\_model/mc2) contains the well-trained APTN, RF, LSTM, NN, DT, LR, SVM, and KNN learning models in online mode. These models are pre-trained and could be used for evalution directly.
+ - The folder [loss](loss) contains the loss records while training different learning models with various epochs.
+ - The folder [log](log) contains the inference evaluation results logs of APTN, RF, LSTM, NN, DT, LR, SVM, and KNN learning models.
  - The folder [BEC_aging_data](BEC\_aging\_data) contains the open-source normalized SSD aging BEC data over 20,000 SSD drives.  
  - The folder [smart-preprocess](smart\-preprocess) contains SMART preprocess source code and processed SMART data that are used for the training/test SMART pool.
- - [slidingWindow.py]( https://github.com/SJTU-Storage-Lab/SC2023AE_APSNet/tree/main/slidingWindow.py) is a script to implement sliding window mechanisms to evaluate the model performance on N days lookahead failure prediction. 
+ - [slidingWindow.py]( https://github.com/SJTU-Storage-Lab/USENIX-ATC-2024-AE-APTN/tree/main/slidingWindow.py) is a script to implement sliding window mechanisms to evaluate the model performance on N days lookahead failure prediction. 
  - The folder [ContainerImage](ContainerImage) contains the container image used for facilitating the artifact evaluation. This image has installed all the library dependencies. All the source code and dataset used for training, test, validition have already been included in this image. This image should be run on docker 20.10.14. 
  - [environment.yml](environment.yml) is a file that records the experiment library setup and dependencies.
 
 
-The APSNet code is released under the BSD-3 [License](LICENSE).
+The APTN code is released under the BSD-3 [License](LICENSE).
 
 ## Prerequisites
 ### Hardware dependencies
@@ -32,7 +35,7 @@ The APSNet code is released under the BSD-3 [License](LICENSE).
 - Minimum hardware requirements: 2 GHz dual-core x86 processor or better, 16 GB system memory, 40GB free hard drive space, and NVIDIA GPU which could support CUDA 11.1 and cudnn 8.0.5.
 ### Software Dependencies
 - It is mainly developed in g++ 7.5.0 and Python 3.7.11. The key libraries should be included: conda 4.10.3, numpy 1.19.5, pandas 0.24.2, pytorch 1.8.0, sklearn 1.0.1, Matplotlib 3.5.0, cuda 11.1 and cudnn 8.0.5
-- To facilitate the software dependencies setup, [/APSNet/environment.yml]( https://github.com/SJTU-Storage-Lab/SC2023AE_APSNet/tree/main/environment.yml) which illustrates all the libraries and dependencies versions is provided. It can be loaded as the initial setup in conda environment.
+- To facilitate the software dependencies setup, [/APSNet/environment.yml]( https://github.com/SJTU-Storage-Lab/USENIX-ATC-2024-AE-APTN/tree/main/environment.yml) which illustrates all the libraries and dependencies versions is provided. It can be loaded as the initial setup in conda environment.
 ## SMART Dataset
 We use Alibaba's [Large-scale SSD Failure Prediction Dataset](https://tianchi.aliyun.com/dataset/dataDetail?dataId=95044) [1] as our SMART dataset. We only use Triple Level Cell (TLC) data in this dataset, which corresponds to SSD models MC1 and MC2.
 
@@ -41,25 +44,25 @@ We use Alibaba's [Large-scale SSD Failure Prediction Dataset](https://tianchi.al
 | MC1 | 189147 | 10508 |
 | MC2 | 22672 | 1131 |
 
-The procedure for SMART data preprocessing is explained in [smart-preprocess/README.md]( https://github.com/SJTU-Storage-Lab/SC2023AE_APSNet/tree/main/smart-preprocess/README.md).
+The procedure for SMART data preprocessing is explained in [smart-preprocess/README.md]( https://github.com/SJTU-Storage-Lab/USENIX-ATC-2024-AE-APTN/tree/main/smart-preprocess/README.md).
 The final output files of preprocessing are under [smart-preprocess/npy](https://github.com/YunfeiGu/APSNet/tree/main/smart-preprocess/npy). We notice that the number of MC2 is too small, and therefore we only use the following files:
-- [smart-preprocess/npy/partial_statistics_mc1_model1.npy]( https://github.com/SJTU-Storage-Lab/SC2023AE_APSNet/tree/main/smart-preprocess/npy/partial_statistics_mc1_model1.npy)
-- [smart-preprocess/npy/partial_statistics_mc1_model2.npy]( https://github.com/SJTU-Storage-Lab/SC2023AE_APSNet/tree/main/smart-preprocess/npy/partial_statistics_mc1_model2.npy)
-- [smart-preprocess/npy/bad_mc1_model1.npy]( https://github.com/SJTU-Storage-Lab/SC2023AE_APSNet/tree/main/smart-preprocess/npy/bad_mc1_model1.npy)
-- [smart-preprocess/npy/bad_mc1_model2.npy]( https://github.com/SJTU-Storage-Lab/SC2023AE_APSNet/tree/main/smart-preprocess/npy/bad_mc1_model2.npy)
+- [smart-preprocess/npy/partial_statistics_mc1_model1.npy]( https://github.com/SJTU-Storage-Lab/USENIX-ATC-2024-AE-APTN/tree/main/smart-preprocess/npy/partial_statistics_mc1_model1.npy)
+- [smart-preprocess/npy/partial_statistics_mc1_model2.npy]( https://github.com/SJTU-Storage-Lab/USENIX-ATC-2024-AE-APTN/tree/main/smart-preprocess/npy/partial_statistics_mc1_model2.npy)
+- [smart-preprocess/npy/bad_mc1_model1.npy]( https://github.com/SJTU-Storage-Lab/USENIX-ATC-2024-AE-APTN/tree/main/smart-preprocess/npy/bad_mc1_model1.npy)
+- [smart-preprocess/npy/bad_mc1_model2.npy]( https://github.com/SJTU-Storage-Lab/USENIX-ATC-2024-AE-APTN/tree/main/smart-preprocess/npy/bad_mc1_model2.npy)
 
 [1] Xu, Fan, et al. "General Feature Selection for Failure Prediction in Large-scale SSD Deployment." 2021 51st Annual IEEE/IFIP International Conference on Dependable Systems and Networks (DSN). IEEE, 2021.
 
 ## SSD Aging BEC Dataset
 The SSD aging BEC Dataset is composed of the following files:
-- [BEC_aging_data/aging.npy]( https://github.com/SJTU-Storage-Lab/SC2023AE_APSNet/tree/main/BEC_aging_data/aging.npy): contains 2048 aging time series. Please refer to our paper for detailed explanation on SSD aging BEC data, aging time series, and the process for SSD aging BEC data preprocessing.
-- [badLoop7_4_45.npy]( https://github.com/SJTU-Storage-Lab/SC2023AE_APSNet/tree/main/BEC_aging_data/badLoop7_4_45.npy) and [goodLoop7_4_45.npy]( https://github.com/SJTU-Storage-Lab/SC2023AE_APSNet/tree/main/BEC_aging_data/goodLoop7_4_45.npy): contains the open-source normalized SSD aging BEC data over 20,000 SSD drives. These data are LUN fine-grained. This type of dataset represents the SSD wear-out degree corresponding to different P/E cycles. Since the SSD manufacturer NDA protocol, we open-source dataset corresponding to several certain P/E cycles. 
+- [BEC_aging_data/aging.npy]( https://github.com/SJTU-Storage-Lab/USENIX-ATC-2024-AE-APTN/tree/main/BEC_aging_data/aging.npy): contains 2048 aging time series. Please refer to our paper for detailed explanation on SSD aging BEC data, aging time series, and the process for SSD aging BEC data preprocessing.
+- [badLoop7_4_45.npy]( https://github.com/SJTU-Storage-Lab/USENIX-ATC-2024-AE-APTN/tree/main/BEC_aging_data/badLoop7_4_45.npy) and [goodLoop7_4_45.npy]( https://github.com/SJTU-Storage-Lab/USENIX-ATC-2024-AE-APTN/tree/main/BEC_aging_data/goodLoop7_4_45.npy): contains the open-source normalized SSD aging BEC data over 20,000 SSD drives. These data are LUN fine-grained. This type of dataset represents the SSD wear-out degree corresponding to different P/E cycles. Since the SSD manufacturer NDA protocol, we open-source dataset corresponding to several certain P/E cycles. 
 
 We hope that the released SSD Aging BEC Dataset will enable future studies to quantify the real-world SSD failure prediction research.
 
 ## Dataset Prepare
 - This step is optional since all datasets used for machine learning models' training and testing process are already well-prepared and saved in [APSNet/data](https://github.com/YunfeiGu/APSNet/tree/main/data). 
-- Due to the Intellectual Property policy of the Raw SSD BEC aging data, we only provide the normalized and well-processed SSD BEC aging data in [APSNet/data/aging.npy]( https://github.com/SJTU-Storage-Lab/SC2023AE_APSNet/tree/main/data/aging.npy).
+- Due to the Intellectual Property policy of the Raw SSD BEC aging data, we only provide the normalized and well-processed SSD BEC aging data in [USENIX-ATC-2024-AE-APTN/data/aging.npy]( https://github.com/SJTU-Storage-Lab/USENIX-ATC-2024-AE-APTN/tree/main/data/aging.npy).
 - you can run the following scripts to execute all steps for preparing the SMART training and testing dataset: 
 
 ```shell
