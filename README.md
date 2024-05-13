@@ -45,10 +45,10 @@ We use Alibaba's [Large-scale SSD Failure Prediction Dataset](https://tianchi.al
 | MC2 | 22672 | 1131 |
 
 The procedure for SMART data preprocessing is explained in [smart-preprocess/README.md]( https://github.com/SJTU-Storage-Lab/USENIX-ATC-2024-AE-APTN/tree/main/smart-preprocess/README.md).
-The final output files of preprocessing are under [smart-preprocess/npy](https://github.com/YunfeiGu/APSNet/tree/main/smart-preprocess/npy). We notice that the number of MC2 is too small, and therefore we only use the following files:
-- [smart-preprocess/npy/partial_statistics_mc1_model1.npy]( https://github.com/SJTU-Storage-Lab/USENIX-ATC-2024-AE-APTN/tree/main/smart-preprocess/npy/partial_statistics_mc1_model1.npy)
-- [smart-preprocess/npy/partial_statistics_mc1_model2.npy]( https://github.com/SJTU-Storage-Lab/USENIX-ATC-2024-AE-APTN/tree/main/smart-preprocess/npy/partial_statistics_mc1_model2.npy)
-- [smart-preprocess/npy/bad_mc1_model1.npy]( https://github.com/SJTU-Storage-Lab/USENIX-ATC-2024-AE-APTN/tree/main/smart-preprocess/npy/bad_mc1_model1.npy)
+The final output files of preprocessing are under [smart-preprocess/npy](https://github.com/SJTU-Storage-Lab/USENIX-ATC-2024-AE-APTN/tree/main/smart-preprocess/npy). We notice that the number of MC2 is too small, and therefore we only use the following files:
+- [smart-preprocess/npy/partial_statistics_mc1_model1.npy](https://github.com/SJTU-Storage-Lab/USENIX-ATC-2024-AE-APTN/tree/main/smart-preprocess/npy/partial_statistics_mc1_model1.npy)
+- [smart-preprocess/npy/partial_statistics_mc1_model2.npy](https://github.com/SJTU-Storage-Lab/USENIX-ATC-2024-AE-APTN/tree/main/smart-preprocess/npy/partial_statistics_mc1_model2.npy)
+- [smart-preprocess/npy/bad_mc1_model1.npy](https://github.com/SJTU-Storage-Lab/USENIX-ATC-2024-AE-APTN/tree/main/smart-preprocess/npy/bad_mc1_model1.npy)
 - [smart-preprocess/npy/bad_mc1_model2.npy]( https://github.com/SJTU-Storage-Lab/USENIX-ATC-2024-AE-APTN/tree/main/smart-preprocess/npy/bad_mc1_model2.npy)
 
 [1] Xu, Fan, et al. "General Feature Selection for Failure Prediction in Large-scale SSD Deployment." 2021 51st Annual IEEE/IFIP International Conference on Dependable Systems and Networks (DSN). IEEE, 2021.
